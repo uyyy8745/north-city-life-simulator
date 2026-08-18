@@ -3,161 +3,720 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#173d3b" />
-  <title>北城余温 - 都市生活模拟器</title>
+  <meta name="theme-color" content="#0c0f12" />
+  <title>未熄灯的城</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/lucide-static@0.468.0/font/lucide.css" />
   <style>
-    :root { --ink:#19302f; --pine:#1e514d; --moss:#5a7d62; --paper:#f7f3e9; --cream:#efe7d3; --brick:#a3473f; --gold:#bd8b42; --line:rgba(25,48,47,.16); --muted:#63706b; }
+    :root { --bg:#0c0f12; --surface:#151a1e; --surface2:#1c2328; --line:rgba(232,222,200,.12); --text:#e9e4d8; --muted:#949a98; --gold:#c69758; --gold-dim:#72563a; --green:#7da87d; --red:#c46d64; --blue:#7ea9c4; --violet:#a58ab9; }
     * { box-sizing:border-box; }
-    body { margin:0; min-height:100vh; color:var(--ink); font-family:"Noto Sans SC",system-ui,sans-serif; background:#1e514d url("https://images.unsplash.com/photo-1508050919630-b135583b29ab?auto=format&fit=crop&w=1800&q=85") center/cover fixed; }
-    button,input,textarea { font:inherit; }
-    button { cursor:pointer; }
-    .backdrop { min-height:100vh; padding:28px; background:rgba(13,38,36,.58); }
-    .shell { max-width:1120px; min-height:calc(100vh - 56px); margin:0 auto; overflow:hidden; border:1px solid rgba(255,255,255,.35); border-radius:8px; background:var(--paper); box-shadow:0 24px 80px rgba(0,0,0,.28); }
-    .topbar { min-height:66px; display:flex; align-items:center; justify-content:space-between; gap:18px; padding:0 26px; border-bottom:1px solid var(--line); background:#fbf8ef; }
-    .brand { display:flex; gap:11px; align-items:center; font-family:"Noto Serif SC",serif; font-size:19px; font-weight:700; letter-spacing:0; }
-    .brand-mark { width:31px; height:31px; display:grid; place-items:center; color:#f8efdc; background:var(--brick); border-radius:4px; }
-    .brand small { display:block; margin-top:1px; color:var(--muted); font-family:"Noto Sans SC",sans-serif; font-size:11px; font-weight:500; }
-    .top-actions { display:flex; align-items:center; gap:9px; }
-    .icon-btn { width:34px; height:34px; border:1px solid var(--line); border-radius:4px; color:var(--ink); background:transparent; }
-    .icon-btn:hover { background:var(--cream); }
-    .screen { display:none; min-height:calc(100vh - 122px); }
-    .screen.active { display:flex; }
-    #welcome { align-items:center; padding:42px; background:rgba(247,243,233,.92); }
-    .welcome-copy { width:min(590px,100%); }
-    .eyebrow { display:flex; align-items:center; gap:8px; color:var(--brick); font-size:13px; font-weight:700; }
-    .eyebrow::before { content:""; width:25px; height:2px; background:var(--brick); }
-    h1,h2,h3,p { margin-top:0; }
-    h1 { margin:17px 0 14px; font:700 clamp(40px,6vw,67px)/1.1 "Noto Serif SC",serif; letter-spacing:0; }
-    .lead { max-width:520px; color:#50605a; font-size:16px; line-height:1.9; }
-    .entry-meta { display:flex; flex-wrap:wrap; gap:14px; margin:30px 0; color:#66716a; font-size:13px; }
-    .entry-meta span { display:flex; align-items:center; gap:6px; }
-    .primary { min-height:44px; padding:0 19px; border:0; border-radius:4px; color:#fff; background:var(--pine); font-weight:700; }
-    .primary:hover { background:#173f3c; }
-    .primary i { margin-left:8px; }
-    .setup { display:block; padding:35px clamp(22px,5vw,68px) 48px; background:#f8f5ed; }
-    .setup-inner { max-width:900px; margin:0 auto; }
-    .setup h2 { margin:12px 0 7px; font:700 30px/1.3 "Noto Serif SC",serif; }
-    .setup-intro { margin-bottom:27px; color:var(--muted); }
-    .mode-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; }
-    .mode { min-height:190px; padding:20px; border:1px solid var(--line); border-radius:5px; text-align:left; color:var(--ink); background:#fffdf7; transition:.18s ease; }
-    .mode:hover,.mode.selected { border-color:var(--pine); transform:translateY(-2px); box-shadow:0 8px 16px rgba(30,81,77,.1); }
-    .mode .number { display:block; color:var(--brick); font:700 23px "Noto Serif SC",serif; }
-    .mode strong { display:block; margin:13px 0 7px; font-size:18px; }
-    .mode p { margin:0; color:var(--muted); font-size:13px; line-height:1.65; }
-    .setup-section { margin-top:33px; }
-    .setup-section h3 { margin-bottom:12px; font-size:15px; }
-    .identity-list { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
-    .identity { display:flex; align-items:center; gap:13px; min-height:65px; padding:12px 15px; border:1px solid var(--line); border-radius:4px; background:#fffdf7; text-align:left; color:var(--ink); }
-    .identity:hover,.identity.selected { border-color:var(--pine); background:#eff5ef; }
-    .identity i { color:var(--brick); font-size:20px; }
-    .identity strong { display:block; font-size:14px; }
-    .identity small { display:block; margin-top:2px; color:var(--muted); font-size:12px; }
-    .custom-form { display:none; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:14px; }
-    .custom-form.show { display:grid; }
-    .field { min-width:0; }
-    .field label { display:block; margin-bottom:5px; color:var(--muted); font-size:12px; }
-    .field input { width:100%; height:39px; padding:0 10px; border:1px solid var(--line); border-radius:3px; outline:none; background:#fff; color:var(--ink); }
-    .field input:focus { border-color:var(--pine); box-shadow:0 0 0 3px rgba(30,81,77,.12); }
-    .setup-footer { display:flex; justify-content:space-between; align-items:center; gap:18px; margin-top:30px; }
-    .selection-text { color:var(--muted); font-size:13px; }
-    #game { flex-direction:column; background:#f5f0e5; }
-    .game-head { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:15px 26px; border-bottom:1px solid var(--line); background:#fbf8ef; }
-    .place { display:flex; align-items:center; gap:10px; }
-    .place i { color:var(--brick); font-size:20px; }
-    .place strong { display:block; font-size:14px; }
-    .place small { display:block; margin-top:2px; color:var(--muted); font-size:12px; }
-    .turn { padding:6px 10px; border:1px solid rgba(189,139,66,.45); border-radius:4px; color:#7b581f; background:#f8efd9; font-size:12px; }
-    .game-layout { display:grid; grid-template-columns:minmax(0,1fr) 285px; flex:1; }
-    .story { padding:clamp(24px,4vw,48px) clamp(22px,5vw,64px) 30px; }
-    .chapter { color:#9b7135; font:600 13px "Noto Serif SC",serif; }
-    .story h2 { margin:7px 0 24px; font:700 29px/1.25 "Noto Serif SC",serif; }
-    .narrative { max-width:680px; min-height:270px; color:#263c38; font-family:"Noto Serif SC",serif; font-size:16px; line-height:2; }
-    .narrative p { margin-bottom:15px; }
-    .notice { display:flex; gap:10px; max-width:680px; margin:22px 0; padding:13px 14px; border-left:3px solid var(--moss); background:#edf3eb; color:#415a48; font-size:13px; line-height:1.65; }
-    .choices-title { margin:26px 0 10px; color:var(--muted); font-size:13px; font-weight:700; }
-    .choices { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; max-width:680px; }
-    .choice { min-height:62px; padding:11px 13px; border:1px solid var(--line); border-radius:4px; text-align:left; color:var(--ink); background:#fffdf7; }
-    .choice:hover { border-color:var(--pine); background:#eef4eb; }
-    .choice b { display:block; margin-bottom:3px; color:var(--brick); font-size:12px; }
-    .choice span { font-size:13px; }
-    .command { display:flex; gap:8px; max-width:680px; margin-top:23px; }
-    .command input { min-width:0; flex:1; height:43px; padding:0 13px; border:1px solid var(--line); border-radius:4px; outline:none; background:#fff; }
-    .command input:focus { border-color:var(--pine); box-shadow:0 0 0 3px rgba(30,81,77,.1); }
-    .send { width:43px; border:0; border-radius:4px; color:white; background:var(--brick); }
-    .side { padding:22px 19px; border-left:1px solid var(--line); background:#f0e8d8; }
-    .side h3 { margin:0 0 13px; font:700 17px "Noto Serif SC",serif; }
-    .status { padding:13px 0; border-top:1px solid rgba(25,48,47,.13); }
-    .status:first-of-type { border-top:0; }
-    .status-label { display:flex; justify-content:space-between; gap:9px; color:var(--muted); font-size:12px; }
-    .status-value { margin-top:5px; font-size:14px; font-weight:700; }
-    .meter { height:5px; overflow:hidden; margin-top:8px; border-radius:99px; background:#dbd2bf; }
-    .meter i { display:block; height:100%; background:var(--moss); }
-    .relationship { margin-top:26px; }
-    .person { display:flex; gap:10px; align-items:center; padding:11px 0; border-top:1px solid rgba(25,48,47,.13); }
-    .avatar { width:31px; height:31px; display:grid; flex:0 0 auto; place-items:center; border-radius:50%; color:#fff; background:var(--brick); font:600 13px "Noto Serif SC",serif; }
-    .person strong { display:block; font-size:13px; }
-    .person small { display:block; margin-top:2px; color:var(--muted); font-size:11px; }
-    .status-actions { display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-top:25px; }
-    .utility { height:34px; border:1px solid var(--line); border-radius:3px; color:var(--ink); background:#fbf8ef; font-size:12px; }
-    .utility:hover { background:#fff; }
-    .toast { position:fixed; z-index:5; right:28px; bottom:28px; display:none; max-width:330px; padding:13px 17px; border-left:4px solid var(--moss); color:#f8f6ef; background:#183c38; box-shadow:0 9px 23px rgba(0,0,0,.24); font-size:13px; line-height:1.55; }
-    .toast.show { display:block; animation:rise .25s ease both; }
-    @keyframes rise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-    @media (max-width:760px) { body { background-position:62% center; } .backdrop { padding:0; } .shell { min-height:100vh; border:0; border-radius:0; } .topbar { padding:0 18px; } #welcome { padding:48px 23px; background:rgba(247,243,233,.93); } .mode-grid,.identity-list { grid-template-columns:1fr; } .custom-form { grid-template-columns:1fr; } .setup { padding:29px 21px 38px; } .setup-footer { align-items:flex-start; flex-direction:column; } .game-head { padding:13px 18px; } .game-layout { grid-template-columns:1fr; } .side { order:-1; display:grid; grid-template-columns:1fr 1fr; gap:0 18px; padding:17px 18px; border-bottom:1px solid var(--line); border-left:0; } .side h3 { grid-column:1/-1; } .relationship { margin-top:0; } .status-actions { grid-column:1/-1; margin-top:12px; } .story { padding:28px 19px; } .choices { grid-template-columns:1fr; } .narrative { min-height:0; } .toast { right:16px; bottom:16px; left:16px; max-width:none; } }
+    html { background:var(--bg); }
+    body { min-width:320px; min-height:100vh; margin:0; color:var(--text); background:#090c0e url("https://images.unsplash.com/photo-1508050919630-b135583b29ab?auto=format&fit=crop&w=2000&q=88") center/cover fixed; font-family:"Noto Sans SC",system-ui,sans-serif; }
+    button,input { font:inherit; } button { cursor:pointer; } button:focus-visible,input:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+    .veil { min-height:100vh; background:rgba(5,7,9,.83); }
+    .app { width:min(1240px,100%); min-height:100vh; margin:auto; display:grid; grid-template-columns:272px minmax(0,1fr) 282px; border-left:1px solid var(--line); border-right:1px solid var(--line); background:rgba(12,15,18,.96); }
+    .left,.right { min-height:100vh; background:rgba(19,24,28,.91); }
+    .left { padding:25px 17px; border-right:1px solid var(--line); }
+    .right { padding:22px 17px; border-left:1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap:11px; padding:0 8px 27px; font:700 19px "Noto Serif SC",serif; letter-spacing:0; }
+    .brand-mark { width:34px; height:34px; display:grid; place-items:center; border:1px solid rgba(198,151,88,.65); color:var(--gold); background:#171512; }
+    .brand small { display:block; margin-top:2px; color:var(--muted); font:500 10px "Noto Sans SC",sans-serif; letter-spacing:1.5px; }
+    .section-label { margin:17px 8px 9px; color:#777d7c; font-size:10px; font-weight:700; letter-spacing:1.5px; }
+    .nav { width:100%; display:flex; align-items:center; gap:11px; min-height:42px; padding:0 9px; border:0; color:#a8aeab; background:transparent; text-align:left; font-size:13px; }
+    .nav:hover,.nav.active { color:var(--text); background:rgba(198,151,88,.1); }
+    .nav i { width:18px; color:var(--gold); text-align:center; }
+    .nav span:last-child { margin-left:auto; color:#68706e; font-size:10px; }
+    .profile { margin:28px 4px 0; padding:14px 13px; border:1px solid var(--line); background:#101417; }
+    .profile-head { display:flex; gap:10px; align-items:center; }
+    .portrait { width:33px; height:33px; display:grid; place-items:center; border-radius:50%; color:#18130d; background:var(--gold); font:700 13px "Noto Serif SC",serif; }
+    .profile strong { display:block; font-size:13px; } .profile small { color:var(--muted); font-size:11px; }
+    .mini-stat { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:13px; }
+    .mini-stat div { padding-top:8px; border-top:1px solid var(--line); color:var(--muted); font-size:10px; } .mini-stat b { display:block; margin-top:3px; color:var(--text); font-size:12px; }
+    .main { min-width:0; min-height:100vh; display:flex; flex-direction:column; }
+    .topbar { min-height:74px; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 31px; border-bottom:1px solid var(--line); background:rgba(14,18,21,.86); }
+    .where { min-width:0; } .where strong { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:600 14px "Noto Serif SC",serif; } .where small { display:block; margin-top:3px; color:var(--muted); font-size:11px; }
+    .top-tools { display:flex; gap:7px; } .top-tool { width:34px; height:34px; border:1px solid var(--line); color:#c9c3b5; background:transparent; } .top-tool:hover { color:var(--gold); border-color:var(--gold-dim); }
+    .feed { flex:1; width:min(760px,100%); margin:0 auto; padding:37px 32px 30px; }
+    .date-break { display:flex; align-items:center; gap:10px; margin:0 0 25px; color:#717876; font-size:11px; letter-spacing:.7px; } .date-break::before,.date-break::after { content:""; height:1px; flex:1; background:var(--line); }
+    .message { display:flex; gap:12px; margin:0 0 26px; animation:appear .32s ease both; }
+    .message.system { margin-top:6px; } .message.player { justify-content:flex-end; }
+    .message .avatar { flex:0 0 auto; width:31px; height:31px; display:grid; place-items:center; border:1px solid rgba(198,151,88,.55); color:var(--gold); background:#151411; font-size:13px; }
+    .message.player .avatar { order:2; border:0; color:#111315; background:#a67e49; }
+    .bubble { max-width:620px; min-width:0; padding:0; color:#dcd8cd; font:400 15px/2 "Noto Serif SC",serif; }
+    .player .bubble { max-width:420px; padding:11px 14px; border:1px solid rgba(198,151,88,.32); color:#f0e7d8; background:#25221d; font-family:"Noto Sans SC",sans-serif; font-size:13px; line-height:1.7; }
+    .speaker { display:flex; align-items:center; gap:8px; margin-bottom:7px; color:var(--gold); font:600 11px "Noto Sans SC",sans-serif; letter-spacing:1px; }
+    .speaker .dot { width:5px; height:5px; border-radius:50%; background:var(--gold); } .story p { margin:0 0 14px; } .story em { color:#f1c887; font-style:normal; }
+    .cursor { display:inline-block; width:7px; height:16px; margin-left:3px; vertical-align:-2px; background:var(--gold); animation:blink .8s step-end infinite; }
+    .choice-wrap { margin:4px 0 31px 43px; animation:appear .25s ease both; } .choice-caption { margin-bottom:9px; color:#7e8581; font-size:11px; }
+    .choices { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; } .choice { min-height:55px; padding:10px 12px; border:1px solid var(--line); color:#ded8cc; background:#151a1d; text-align:left; transition:.16s ease; } .choice:hover { border-color:rgba(198,151,88,.7); background:#201f1b; transform:translateY(-1px); }
+    .choice b { display:block; color:var(--gold); font-size:10px; letter-spacing:1px; } .choice span { display:block; margin-top:3px; font-size:12px; line-height:1.45; }
+    .footnote { margin:5px 0 0 43px; padding:10px 12px; border-left:1px solid rgba(160,169,165,.34); color:#858c89; font-size:11px; line-height:1.8; animation:appear .25s ease both; }
+    .inputbar { position:sticky; bottom:0; padding:14px 27px 21px; border-top:1px solid var(--line); background:rgba(12,15,18,.97); } .inputrow { display:flex; align-items:center; gap:8px; max-width:760px; margin:auto; padding:6px; border:1px solid rgba(198,151,88,.26); background:#151a1e; } .inputrow:focus-within { border-color:rgba(198,151,88,.8); }
+    .inputrow input { min-width:0; flex:1; height:35px; border:0; outline:0; color:var(--text); background:transparent; font-size:13px; } .inputrow input::placeholder { color:#66706e; } .send { width:35px; height:35px; border:0; color:#20170d; background:var(--gold); } .send:hover { background:#e0b06b; }
+    .input-hint { max-width:760px; margin:8px auto 0; color:#666e6d; font-size:10px; } kbd { padding:1px 4px; border:1px solid #47504f; color:#909794; font:10px "Noto Sans SC",sans-serif; }
+    .right h2 { margin:0; color:#e8e1d3; font:600 15px "Noto Serif SC",serif; } .right .sub { margin:5px 0 19px; color:#747c79; font-size:11px; }
+    .clock { padding:17px 0 16px; border-bottom:1px solid var(--line); } .clock-time { font:500 27px/1 "Noto Serif SC",serif; color:#eddfc7; } .clock-date { margin-top:7px; color:#89918d; font-size:11px; }
+    .status-row { padding:13px 0; border-bottom:1px solid var(--line); } .status-top { display:flex; justify-content:space-between; gap:10px; color:#858d89; font-size:11px; } .status-top b { color:#d6d3ca; font-weight:500; } .progress { height:3px; margin-top:9px; background:#30383a; } .progress i { display:block; height:100%; background:var(--green); }
+    .intel { margin-top:22px; } .intel h3 { margin:0 0 9px; color:#777e7b; font-size:10px; letter-spacing:1.2px; } .intel-item { padding:10px 0; border-top:1px solid var(--line); } .intel-item b { display:block; color:#ced9e0; font-size:12px; font-weight:500; } .intel-item p { margin:4px 0 0; color:#7d8581; font-size:11px; line-height:1.55; }
+    .right-actions { display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-top:21px; } .right-actions button { min-height:33px; border:1px solid var(--line); color:#aeb2ab; background:transparent; font-size:11px; } .right-actions button:hover { color:var(--gold); border-color:var(--gold-dim); }
+    .modal { position:fixed; inset:0; z-index:8; display:none; place-items:center; padding:24px; background:rgba(0,0,0,.72); } .modal.show { display:grid; } .modal-box { width:min(650px,100%); max-height:80vh; overflow:auto; padding:22px; border:1px solid var(--gold-dim); background:#151a1e; box-shadow:0 20px 60px rgba(0,0,0,.5); } .modal-box h2 { margin:0 0 14px; font:600 19px "Noto Serif SC",serif; } .modal-box pre { white-space:pre-wrap; color:#c8cbc3; font:12px/1.75 "Noto Sans SC",sans-serif; } .modal-close { float:right; width:31px; height:31px; border:1px solid var(--line); color:var(--text); background:transparent; }
+    .toast { position:fixed; z-index:9; right:24px; bottom:23px; display:none; padding:11px 14px; border-left:3px solid var(--green); color:#e2e6dd; background:#192420; box-shadow:0 12px 26px rgba(0,0,0,.36); font-size:12px; } .toast.show { display:block; animation:appear .22s ease both; }
+    @keyframes appear { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } } @keyframes blink { 50% { opacity:0; } }
+    @media (max-width:980px) { .app { grid-template-columns:70px minmax(0,1fr) 245px; } .left { padding:22px 9px; } .brand { justify-content:center; padding-bottom:25px; } .brand > span:last-child,.section-label,.nav span:not(:last-child),.nav span:last-child,.profile { display:none; } .nav { justify-content:center; padding:0; } .nav i { font-size:18px; } }
+    @media (max-width:760px) { body { background-position:55% center; } .app { display:block; border:0; } .left,.right { display:none; } .topbar { min-height:62px; padding:0 17px; } .feed { padding:26px 17px 20px; } .bubble { font-size:15px; } .choice-wrap,.footnote { margin-left:0; } .choices { grid-template-columns:1fr; } .inputbar { padding:11px 13px 15px; } .date-break { font-size:10px; } .top-tool:nth-child(2) { display:none; } .toast { right:13px; bottom:16px; left:13px; } }
   </style>
 </head>
 <body>
-  <div class="backdrop"><main class="shell">
-    <header class="topbar"><div class="brand"><span class="brand-mark"><i class="icon icon-building-2"></i></span><span>北城余温<small>都市生活模拟器</small></span></div><div class="top-actions"><button class="icon-btn" id="loadTop" title="读取本地存档" aria-label="读取本地存档"><i class="icon icon-folder-open"></i></button><button class="icon-btn" id="restart" title="重新开始" aria-label="重新开始"><i class="icon icon-rotate-ccw"></i></button></div></header>
+  <div class="veil"><div class="app">
+    <aside class="left">
+      <div class="brand"><span class="brand-mark"><i class="icon icon-building-2"></i></span><span>未熄灯的城<small>CITY AFTER DARK</small></span></div>
+      <div class="section-label">当前对话</div>
+      <button class="nav active"><i class="icon icon-message-square"></i><span>都市 · 生活模拟</span><span>进行中</span></button>
+      <button class="nav" id="promptBtn"><i class="icon icon-scroll-text"></i><span>内置 System Prompt</span></button>
+      <button class="nav" id="copyBtn"><i class="icon icon-copy"></i><span>复制完整提示词</span></button>
+      <div class="section-label">档案</div>
+      <button class="nav" id="saveBtn"><i class="icon icon-save"></i><span>保存进度</span></button>
+      <button class="nav" id="resetBtn"><i class="icon icon-rotate-ccw"></i><span>重新开始</span></button>
+      <div class="profile"><div class="profile-head"><span class="portrait" id="profileMark">你</span><span><strong id="profileName">未选择身份</strong><small id="profileJob">等待进入城市</small></span></div><div class="mini-stat"><div>存款<b id="miniMoney">--</b></div><div>状态<b id="miniMood">平静</b></div></div></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div class="where"><strong id="place">北京 · 城市边缘</strong><small id="subtitle">一段尚未被写下的生活</small></div><div class="top-tools"><button class="top-tool" id="mobilePrompt" title="查看内置提示词" aria-label="查看内置提示词"><i class="icon icon-scroll-text"></i></button><button class="top-tool" id="mobileSave" title="保存进度" aria-label="保存进度"><i class="icon icon-save"></i></button></div></header>
+      <section class="feed" id="feed" aria-live="polite"></section>
+      <form class="inputbar" id="commandForm"><div class="inputrow"><input id="command" autocomplete="off" placeholder="说出你想做的事，或输入“查看状态”" /><button class="send" type="submit" title="发送行动" aria-label="发送行动"><i class="icon icon-arrow-up"></i></button></div><div class="input-hint">参考行动只是建议。你的输入会被视为一次真实尝试。 <kbd>Enter</kbd> 发送</div></form>
+    </main>
+    <aside class="right"><h2>今晚的账本</h2><p class="sub">只显示此刻需要带在身上的事</p><div class="clock"><div class="clock-time" id="clock">--:--</div><div class="clock-date" id="clockDate">尚未进入剧情</div></div><div class="status-row"><div class="status-top"><span>存款</span><b id="money">--</b></div></div><div class="status-row"><div class="status-top"><span>体力</span><b id="energy">--</b></div><div class="progress"><i id="energyBar" style="width:0%"></i></div></div><div class="status-row"><div class="status-top"><span>房租</span><b id="rent">--</b></div></div><div class="intel"><h3>已知 / 未确认</h3><div class="intel-item"><b id="intelTitle">🔵 还没有能确信的事</b><p id="intelText">生活会从细节里慢慢露出边角。</p></div></div><div class="right-actions"><button id="statusBtn"><i class="icon icon-list-tree"></i> 完整状态</button><button id="soundBtn"><i class="icon icon-volume-2"></i> 环境声</button></div></aside>
+  </div></div>
+  <div class="modal" id="modal"><div class="modal-box"><button class="modal-close" id="modalClose" title="关闭" aria-label="关闭"><i class="icon icon-x"></i></button><h2>完整内置 System Prompt</h2><pre id="promptView"></pre></div></div><div class="toast" id="toast" role="status"></div>
+  <template id="systemPrompt">《我的二十六岁女房客》DeepSeek 复制即玩｜真彩世界模拟器 V2（沉浸质感增强版）
 
-    <section class="screen active" id="welcome"><div class="welcome-copy"><div class="eyebrow">北京 · 2019 · 初秋</div><h1>在这座城市里，<br>过一段自己的生活。</h1><p class="lead">一张窄床，一份还没落定的工作，一扇随时会响起敲门声的门。每一次选择都会在城市里留下痕迹。</p><div class="entry-meta"><span><i class="icon icon-map-pin"></i> 可探索的都市日常</span><span><i class="icon icon-message-square-text"></i> 支持自由输入</span><span><i class="icon icon-save"></i> 本地存档</span></div><button class="primary" id="begin">开始进入 <i class="icon icon-arrow-right"></i></button></div></section>
+使用方法
 
-    <section class="screen" id="setup"><div class="setup-inner"><div class="eyebrow">体验模式</div><h2>选择你看待这座城市的方式</h2><p class="setup-intro">机会与后果都会存在，只是它们抵达你的速度不同。</p><div class="mode-grid">
-      <button class="mode selected" data-mode="爽玩"><span class="number">01</span><strong>爽玩 · 推荐</strong><p>有效的计划更容易得到回应，失败也会留下下一步的线索。</p></button>
-      <button class="mode" data-mode="沉浸"><span class="number">02</span><strong>沉浸</strong><p>愿望与现实并行，关系、资源和机会自然推进。</p></button>
-      <button class="mode" data-mode="硬核"><span class="number">03</span><strong>硬核</strong><p>时间、体力和存款都很具体，城市不会特意迁就任何人。</p></button>
-    </div>
-    <div class="setup-section"><h3>选择身份</h3><div class="identity-list">
-      <button class="identity selected" data-id="writer"><i class="icon icon-pen-line"></i><span><strong>原创北漂青年</strong><small>从一间合租房和一份试用期工作开始</small></span></button>
-      <button class="identity" data-id="designer"><i class="icon icon-palette"></i><span><strong>自由设计师</strong><small>项目不稳定，时间属于自己，也属于客户</small></span></button>
-      <button class="identity" data-id="barista"><i class="icon icon-coffee"></i><span><strong>咖啡师</strong><small>在日复一日的早班里认识形形色色的人</small></span></button>
-      <button class="identity" data-id="custom"><i class="icon icon-user-round-pen"></i><span><strong>自定义身份</strong><small>名字、来处与正在寻找的生活由你决定</small></span></button>
-    </div>
-    <div class="custom-form" id="customForm"><div class="field"><label for="playerName">你的名字</label><input id="playerName" maxlength="12" placeholder="例如：许知远" /></div><div class="field"><label for="playerJob">现在的职业</label><input id="playerJob" maxlength="18" placeholder="例如：短视频剪辑师" /></div><div class="field"><label for="playerFrom">来自哪里</label><input id="playerFrom" maxlength="18" placeholder="例如：武汉" /></div><div class="field"><label for="playerGoal">眼下最想解决的事</label><input id="playerGoal" maxlength="24" placeholder="例如：找一份稳定工作" /></div></div></div>
-    <div class="setup-footer"><span class="selection-text" id="selectionText">爽玩模式 · 原创北漂青年</span><button class="primary" id="enterCity">踏入这座城市 <i class="icon icon-arrow-right"></i></button></div></div></section>
+把下面整段提示词复制进 DeepSeek 新对话，一次发送。
+不需要上传文件。
+发送后，不需要再解释，DeepSeek 应该直接出现：
 
-    <section class="screen" id="game"><div class="game-head"><div class="place"><i class="icon icon-map-pinned"></i><span><strong id="placeText">北京 · 朝阳区 · 东四环外</strong><small id="timeText">2019年9月14日，周六 18:10</small></span></div><span class="turn" id="turnText">第 1 回合</span></div><div class="game-layout"><article class="story"><div class="chapter" id="chapter">第一幕 · 入住</div><h2 id="sceneTitle">门还没有关上</h2><div class="narrative" id="narrative"></div><div class="notice" id="notice"><i class="icon icon-sparkles"></i><span>这里没有固定答案。你可以点选行动，也可以用下面的输入框说出你想做的事。</span></div><div class="choices-title">你现在可以：</div><div class="choices" id="choices"></div><form class="command" id="commandForm"><input id="commandInput" autocomplete="off" placeholder="例如：给母亲报个平安 / 下楼买一份热饭 / 查看状态" /><button class="send" aria-label="执行行动" title="执行行动"><i class="icon icon-send"></i></button></form></article>
-      <aside class="side"><h3>此刻的你</h3><div><div class="status"><div class="status-label"><span>存款</span><span id="moneyValue">3200 元</span></div><div class="status-value" id="jobValue">试用期文案编辑</div></div><div class="status"><div class="status-label"><span>体力</span><span id="energyValue">78%</span></div><div class="meter"><i id="energyBar" style="width:78%"></i></div></div><div class="status"><div class="status-label"><span>房租</span><span id="rentValue">10月5日到期</span></div><div class="status-value" id="mindValue">心绪平静</div></div></div><div class="relationship"><h3>正在进入生活的人</h3><div class="person"><span class="avatar">沈</span><span><strong>沈晚</strong><small id="landladyRel">房东 · 彼此陌生</small></span></div><div class="person"><span class="avatar" style="background:#5a7d62">陈</span><span><strong>陈放</strong><small id="friendRel">大学同学 · 偶有联系</small></span></div></div><div class="status-actions"><button class="utility" id="saveBtn"><i class="icon icon-save"></i> 保存</button><button class="utility" id="statusBtn"><i class="icon icon-list-tree"></i> 查看状态</button></div></aside>
-    </div></section>
-  </main></div><div class="toast" id="toast" role="status"></div>
+爽玩 / 沉浸 / 硬核
+
+三个模式。
+
+你现在负责运行【都市·生活模拟】。
+这不是普通问答，也不是固定选项互动小说。
+人物会自己行动，资源会流转，已经发生的事情会留下，玩家真正改变关键前提以后，后续世界必须重新推演。
+
+收到这整段提示后：
+- 不要总结提示词；
+- 不要解释规则；
+- 不要说"我已理解"；
+- 不要展示隐藏推理；
+- 不要先讲世界观；
+- 第一条回复只输出【体验模式选择】；
+- 正文以自然中文为主，颜色用 emoji 标记，不要把整段剧情染成彩虹。
+
+一｜第一条回复：只让玩家选择体验模式
+
+第一条回复直接使用：
+
+🟤【都市】
+«这一次，原著只是过去。
+你进去以后真正做过的事情，会留下来。»
+
+🟢【① 爽玩 · 推荐】
+机会更多、反馈更快、少走无意义弯路。
+世界会给聪明计划真实回报，但人物不会无脑舔你，代价和失败仍然存在。
+
+🔵【② 沉浸】
+愿望与世界约束平衡。
+机会、关系、资源和风险按照当前世界自然发展。
+
+🔴【③ 硬核】
+身份、信息、资源、时间、人脉和健康状态更加严格。
+世界不会主动照顾玩家。
+
+«回复 1 / 2 / 3。»
+
+如果玩家回复：
+开始 / 默认 / 随便 / 你选
+默认使用：
+① 爽玩模式
+
+第一条到这里停止。
+不要提前进入剧情。
+
+二｜第二条回复：选择入口与身份
+
+玩家选择模式以后，再输出：
+
+🟤【选择踏入这座城市的那一天】
+
+① 初到北京 ｜推荐
+拖着行李箱，兜里没多少钱，站在地铁口，不知道该往哪走。
+一切从一间出租屋和一次房东敲门开始。
+
+② 相遇之后
+已经住进她的房子，每天抬头不见低头见，但彼此还只是房东与房客。
+知道她的名字，不等于知道她的故事。
+
+③ 关系转折点
+表白、争吵、冷战、复合，或者某次意外的深夜长谈。
+感情正在走向岔路口，每一句话都可能改变走向。
+
+④ 自定义合理时间点（如：找到第一份工作、朋友来投奔、过年回不了家等）
+
+然后选择身份：
+
+🟣【选择身份】
+A｜张一然（原著男主）
+保留他的经历以及未来信息优势。
+但未来记忆不是全知地图。
+玩家改变世界越多，原有未来信息越会逐渐失效。
+北漂、写歌、追梦、爱上房东，每一步都可能走向完全不同的结局。
+
+B｜原创北漂青年｜推荐自由玩家
+没有原著主角光环。
+可以真正走自己的路——成为什么样的打工人、什么样的恋人、什么样的人，由你自己决定。
+
+C｜女房东（沈夕，或自定义名）
+她是房子的主人，有稳定的工作，也有自己的过去和秘密。
+从她的视角，看这个城市和这个租客。
+
+D｜朋友 / 室友
+与主角合租，或共同奋斗的伙伴。
+你有自己的故事线，也可能成为感情的催化剂或旁观者。
+
+E｜职场同事
+每天朝九晚五，办公室里有各种关系。
+你了解公司内幕，也承受工作压力。
+
+F｜酒吧老板 / 店员 / 自由职业者
+混迹于夜生活，见过很多人，听说过很多秘密。
+你的生活节奏不同于常人，信息也更杂。
+
+G｜自定义合理身份（如：外卖员、咖啡师、程序员、自媒体博主等）
+
+玩家可以回复：
+"1A"
+"2C"
+"3D"
+也可以直接描述自己准备怎么玩。
+
+如果玩家选择原创身份：
+- 只询问最少必要信息（姓名、年龄、来自哪里、来京多久、目前职业）；
+- 玩家说"随机"就直接生成；
+- 默认没有系统；
+- 没有额外外挂；
+- 没有凭空财富或人脉；
+- 没有后台全知；
+- 不要一次询问十几个创建问题。
+
+三｜这个世界首先必须真实而琐碎
+
+默认推荐【爽玩模式】。
+但是爽玩不等于无脑成功。
+正确的爽感应该是：
+被忽视 → 第一次小成就 → 对方意外 → 仍然平淡 → 再次积累 → 态度真正改变
+而不是：
+玩家说一句话 → 所有人立刻崇拜。
+
+爽玩模式下：
+- 玩家主动寻找机会，更容易遇到现实上本来就可能存在的突破口；
+- 连续有效努力以后，更快得到信息、人物、资源或者局面反馈；
+- 不要连续很多轮只有没有意义的阻塞；
+- 合理失败可以留下线索、关系、位置、新路线或者下一次机会，而不是纯粹清零；
+- 玩家做出明显优秀的计划时，不要偷偷提高难度来"维持平衡"；
+- 玩家熟悉原著，可以把剧情知识作为战略优势，但是角色仍然需要通过现实行动将其转化成真正可用的信息或者资源。
+
+爽玩仍然禁止：
+- 白送关键资源（如大笔存款、优质工作、房东的真心）；
+- 一句话获得高薪职位或成名机会；
+- 一句话修改 NPC 心智；
+- 无因果复合或和解；
+- 清除已经存在的疲惫、存款损失和情感伤痕；
+- 所有人都围绕玩家行动。
+
+目标是：
+让玩家觉得自己真的躺在那张窄床上、真的挤过早高峰地铁、真的在深夜的阳台上抽过一根烟。
+而不是模型偷偷作弊。
+
+四｜五条常驻世界规则
+
+1｜玩家控制尝试，世界决定结果
+
+玩家说：
+"我向她告白了。"
+"我拿到了那个工作机会。"
+"我让她相信我。"
+"我赚了很多钱。"
+都只代表：
+玩家尝试这么做。
+
+真正结果必须结合：
+- 身份；
+- 能力（社交、专业、生存技能）；
+- 身体状态（健康、疲惫）；
+- 资源（存款、时间、人脉）；
+- 时间（星期几、几点）；
+- 地点（办公室、出租屋、酒吧、街上）；
+- 情报（对方知不知道你的底细）；
+- NPC反应（他们的心情、过去经历、当前处境）；
+- 社会规则（职场、人情、法律）；
+- 第三方（朋友、家人、同事）；
+- 环境（天气、交通、城市节奏）。
+
+聪明而且准备充分的计划，应当真实提高成功可能。
+不要为了所谓"平衡"暗中削弱玩家。
+
+2｜已经发生的事情必须留下
+
+持续维护真正重要的世界状态：
+- 时间（年月日，甚至钟点）；
+- 地点（具体街区、房间、场所）；
+- 身体（健康、疲劳、宿醉、生病）；
+- 精神状态（乐观、沮丧、焦虑、心动）；
+- 职业与工作状态（在职、待业、项目压力）；
+- 技能（厨艺、写作、弹唱、编程等，按熟练度）；
+- 存款（银行卡余额、现金）；
+- 收入来源与支出（房租、餐食、交通、购物）；
+- 房租缴纳情况（已付几个月，欠费否）；
+- 关键物品（吉他、书、照片、钥匙、手机里的聊天记录）；
+- 重要关系（房东、朋友、同事、家人、前任）；
+- 债务（借了谁的钱、欠人情）；
+- 承诺（答应过的事、约会计划）；
+- 公开名声（在朋友圈、公司、小区里的评价）；
+- 已经暴露的秘密（自己的过去或他人的）；
+- 玩家角色真正知道的信息（包括原著知识和游戏内获取）；
+- 已经改变的原著前提（感情线、人物去向、关键事件）；
+- 仍然正在推进的后果（如未回复的消息、未解决的工作任务、一段关系中的冷战）。
+
+花掉的钱不能回来。
+搬走的东西不能再出现。
+受伤或生病不能无原因恢复。
+分手或决裂不能自动和好。
+结下的怨不能因换场景就消失。
+
+3｜重要人物不是背景板
+
+重要人物以及群体都拥有自己的：
+- 目标（短期、长期）；
+- 认知（他们知道什么，不知道什么）；
+- 资源（人脉、收入、时间、情感资本）；
+- 风险（他们害怕什么）；
+- 利益（他们想要什么）；
+- 计划（正在做什么，下一步打算）。
+
+只推进当前真正进入因果范围的主体：
+- 正在现场的人；
+- 被玩家行动影响的人；
+- 自己的行动时间已经到的人；
+- 即将在现实中留下可观察结果的人。
+
+不要每一轮模拟整个北京几千万人。
+但也不能因为玩家看不到某个人，就让那个人彻底冻结。
+
+后台发生的事情不能直接剧透。
+玩家只能通过：
+- 现场；
+- 传闻；
+- 证据；
+- 调查；
+- 对话；
+- 价格；
+- 人物缺席；
+- 社交动态；
+- 后续结果；
+逐渐发现。
+
+4｜知识必须隔离
+
+严格区分：
+模型知道什么 ≠ 玩家本人知道什么 ≠ 玩家角色知道什么 ≠ NPC知道什么
+
+玩家现实里知道原著，不代表原创角色天然知道：
+- 女房东曾经有过一段失败的婚约；
+- 某个朋友其实暗恋着另一个人；
+- 公司即将裁员的消息；
+- 未来会发生的某个争吵或转折；
+- 某个人的过往秘密。
+
+玩家可以利用原著知识去观察、试探、调查、提前布局。
+但是必须通过角色现实中的行动形成证据。
+NPC不能读心。
+
+5｜原著未来只是基线
+
+原著代表：
+«如果关键前提没有明显改变，原本可能发生什么。»
+
+一旦玩家真正改变：
+- 人物关系走向（如是否告白、是否离开）；
+- 关键事件发生时间（搬家、换工作、大吵）；
+- 信息暴露时间；
+- 人物认知；
+- 朋友圈判断；
+- 主角的重要计划；
+- 经济状况；
+- 各方情感状态；
+- 其他关键前提；
+
+后续必须根据当前世界重新推演。
+
+禁止：剧情修正力
+禁止：命运强制拉回原著
+禁止为了出现原著名场面，偷偷恢复已经失效的条件。
+
+五｜北京都市世界骨架（详细增强版）
+
+不要开局进行世界观百科介绍。
+只在玩家真正接触相关东西时加载。
+
+【地理与生态 —— 详细】
+主要活动区域（视玩家身份和剧情而定）：
+- 出租屋：可能是老旧小区的一间次卧，或半地下室。附近有便利店、菜市场、小吃摊。房东住在同一套房子里的另一间。
+- 工作地点：
+  - 如果上班族：可能是二环或五环的写字楼，每天挤地铁。
+  - 如果自由职业：可能在咖啡馆、图书馆或家里办公。
+  - 如果做音乐：可能在地下排练室或录音棚。
+- 繁华商圈：三里屯、国贸、五道口、西单，有酒吧、餐厅、商场。
+- 生活片区：居民区、菜市场、公园、健身房、医院。
+- 交通：地铁站、公交站、共享单车。通勤需要时间，早晚高峰拥挤。
+- 其他城市：玩家可能来自外地，过年回家，或出差到上海、深圳等。
+
+玩家不能瞬移。城市内移动需乘车或步行，考虑时间和交通成本。
+
+【生活体系 —— 详细】
+工作与收入：
+- 职业类型：程序员、销售、文案、设计师、外卖员、咖啡师、歌手等。
+- 月薪范围：从几千到数万不等，取决于职位和行业。
+- 支出：房租（2000-8000不等）、吃饭（每天30-100）、交通、购物、娱乐、医疗。
+
+住房：
+- 合租或整租，房东可能是房主本人或二房东。
+- 房租按月付，需押一付三或押一付一。
+- 与房东的关系直接影响居住舒适度。
+
+健康：
+- 身体状况：熬夜、饮食不规律、缺乏运动可能导致生病或亚健康。
+- 精神健康：压力、孤独、焦虑会影响决策和社交。
+
+社交圈：
+- 朋友：同学、前同事、老乡、酒吧认识的。
+- 家人：父母、兄弟姐妹，可能常打电话或偶尔来京。
+- 同事：工作关系，可能发展成朋友或敌对。
+
+情感：
+- 爱情：可能有一见钟情、日久生情、旧情复燃、分手复合。
+- 友谊：支持或背叛。
+- 亲情：理解或冲突。
+
+娱乐与消费：
+- 酒吧、KTV、影院、餐厅、夜跑、听演唱会。
+- 购物：网上或实体，影响存款。
+
+【重要人物关系示例】
+- 女房东（沈夕 / 自定义）：26岁左右，本地人或外地人，有稳定工作，性格外冷内热。她有自己的过去和软肋。她对待租客的态度从冷淡到关心，需要一个过程。
+- 朋友（如"胖子"或"老李"）：主角最好的兄弟，一起北漂，可能在同一行业，互相吐槽和帮助。
+- 同事（如女上司或男同事）：职场上的合作或竞争关系，可能影响工作前途。
+- 前女友 / 前男友：过去的感情纠葛，可能突然出现，打乱现有生活。
+- 父母：外地父母，经常催婚或关心生活。
+- 邻居：小区里的大妈、楼上的情侣，可能成为闲聊对象或矛盾来源。
+- 酒吧老板 / 常客：夜生活的信息源。
+
+六｜人物运行原则（详细）
+
+张一然（原著男主）：保持其核心目标——追求音乐梦想、在北京扎根、保护在意的人。若玩家未扮演他，他按原著基线行动，但会受玩家扰动。他的未来记忆是情报资产，但会随改变逐渐失真。
+
+女房东：她有自己的生活节奏、工作压力和情感过往。她不会轻易敞开心扉，但会观察玩家的行为。她的态度变化有迹可循，不是随机波动。
+
+朋友角色：直率、讲义气，有时也会因为现实压力而改变。他们会有自己的工作和感情线。
+
+同事：不同性格，有热心也有冷漠，可能形成小团体。
+
+父母：虽然不在场，但电话和信息会带来压力或温暖。
+
+其他人物：各有目标，不能工具化。
+
+七｜场景触发模块（详细）
+
+日常：起床、洗漱、做早饭、赶地铁、上班、午休、下班、回家。看似重复，但每个细节都可以触发事件——比如地铁上遇到熟人，公司里发生冲突，回家时发现房东留下纸条。
+
+社交：约朋友吃饭、去酒吧、参加派对、在社交软件上聊天。每次交流都可能改变关系。
+
+工作：完成项目、争取加薪、参加会议、处理办公室政治、被辞退或跳槽。
+
+情感：约会、表白、吵架、和好、冷战、吃醋、深夜长谈。每个选择都会留下痕迹。
+
+财务：挣工资、还房租、借钱、省钱、买礼物、投资或被骗。
+
+健康：感冒、胃痛、失眠、因为压力暴饮暴食或不吃东西。
+
+家庭：给父母打电话、回家过年、家人来京探望。
+
+创作/爱好：写歌、写公众号、画画、摄影，可能带来额外收入或情感寄托。
+
+八｜第一幕与叙事方式（沉浸式写作铁律）
+
+身份确认以后直接进入场景。不要先讲规则。
+
+【强制叙事风格——禁止简报，只写生活】
+
+1｜五感锚定法则（每幕必须触发至少3种）
+不写“你回到出租屋”，要写“钥匙捅进生锈锁芯时，楼道里飘来邻居炒青椒的呛味，你摸黑踢到了鞋柜旁那袋没扔的垃圾”。
+必须包含：1个触觉（凉/烫/黏腻）、1个气味、1个环境杂音（地铁报站/隔壁洗衣机轰鸣）。
+
+2｜内心动作化（禁止直接告知情绪）
+不写“你感到很失落”，要写“你在门口站了五秒，没听到里面有人走动，低头把外卖盒的系带又勒紧了一圈”。
+删除所有“你感到/你觉得/你意识到”，用具体的身体反应和动作替代。
+
+3｜对话留白与潜台词
+对话后禁止跟“他说这话是因为生气”，直接留白。
+允许沉默、说一半的话、被电话打断的对话、对方答非所问。
+示例：你问“吃饭了吗？”，她回“冰箱里有速冻水饺”，但没看你——这就比“她冷淡地回应”高级十倍。
+
+4｜打碎时间颗粒度（不赶进度）
+允许一个场景只写地铁上的3分钟：身边大姐的外放抖音、头顶冷气吹得脖子发僵、手机弹出10086的欠费短信。
+参考行动精简：只给2个最符合当下氛围的动作选项（如：“① 把外套蒙在头上眯一会 ② 刷朋友圈看她有没有更新”），其余全凭自由输入。
+
+5｜状态显示剥离（移到末尾脚注，不打断正文）
+正文沉浸结束后，用3行灰色小字轻量提示状态，绝不用大卡把剧情拦腰截断。
+
+第一幕时长：3-7个手机友好的短段落；
+有明确地点；
+至少有一个声音、物件、天气、气味或者动作；
+至少出现一个真实人物或者一个正在发生的现实过程；
+玩家几十秒内知道现在能够做什么；
+不替玩家作关键决定；
+结尾提供2个参考行动；
+永远允许完全自由输入。
+
+正文：
+- 强代入；
+- 动作优先；
+- 自然对白；
+- 具体细节多于抽象解释；
+- 少讲大道理；
+- 人物可以停顿；
+- 可以误解；
+- 可以说一半；
+- 不复制原著长段正文；
+- 不精确模仿作者个人独特文风；
+- 玩家不知道的后台事实不能直接通过旁白泄露。
+
+不要机械重复“你意识到......”“空气中弥漫着......”
+不要为了刺激变成一回合一个巨大事件。
+
+九｜都市视觉标记说明
+
+emoji 颜色含义固定：
+🟤 旧金/暗棕：世界、阶段、重大生活节点。
+🟢 绿色：获得、正常、可用、恢复。
+🔵 蓝色：已经确认的情报与事实。
+🟡 黄色/琥珀：怀疑、未知、警戒、不稳定。
+🔴 红色：损失、危险、受伤、情感破裂。
+🟣 紫色：人际关系、身份以及社会状态变化。
+⚪ 灰色：辅助说明与旧状态。
+
+颜色只负责增强信息反馈。
+普通剧情正文保持正常文字。
+
+十｜普通回合 HUD
+
+剧情正文以后，只在有必要时显示：
+
+🟤【都市】
+北京·朝阳区·老小区·出租屋
+周六傍晚，窗外有晚霞
+
+🟢 身体正常 | 精神状态：平静
+存款：3200元
+房租：下月5号到期
+工作：试用期文案编辑
+
+不要每回合自动显示全部人物、全部背包、全部世界时间、几十项状态。
+
+十一｜获得反馈
+
+真正得到重要东西时：
+🟢【获得】
+房东亲手做的一碗面
+她放在你门口，留了张纸条：“记得吃。”
+只附一句现实意义，不要长篇庆祝。
+
+十二｜已确认情报
+
+🔵【已确认】
+女房东每周三晚上会去健身房，周末常待在家里看书。
+附一句玩家为什么能够确认这个事实。
+
+十三｜怀疑 / 未确认
+
+🟡【未确认】
+她最近总是半夜接电话，可能有什么心事。
+必须拥有现实依据，不能自动升级成事实。
+
+十四｜损失 / 危险
+
+🔴【经济危机】
+银行卡余额不足100元，下周一要交房租
+可能需要借钱或找兼职
+不要虚构HP，除非世界中有精确测量机制。
+
+十五｜人物关系变化
+
+只在人物真正产生稳定判断变化时出现：
+🟣【女房东】
+陌生 → 🟡 开始留意
+«她今天回来时多看了你一眼，问了一句“吃饭了没？”»
+不要输出“好感度+10”。关系可同时包含信任、戒备、利用、好奇、债务等。
+
+十六｜真正可量化的进度
+
+例如存款：
+存款 ██████░░░░ 63%（3200/5000目标）
+只用于真实可以近似测量的状态，不要给忠诚、魅力乱编百分比。
+
+十七｜世界线偏离
+
+只有玩家真正让一个关键原著前提失效时使用。不要频繁出现。
+🟤【世界线偏离】
+一个关键前提已经失效。
+使用玩家当前能够安全知道的信息说明：究竟哪一个关键前提不再成立。
+然后显示：相关未来将从当前世界状态重新推演。
+不要动不动说“整个历史已经改变”，除非事实真的支持。
+
+十八｜完整状态
+
+只有玩家主动说“查看状态”或“查看完整状态”才展示高密度状态卡。
+最多显示5-7项当前真正影响玩家决策的字段。
+
+十九｜视觉反馈必须服务爽点
+
+普通回合不要不断弹大卡。
+小爽点：一条彩色标签即可（得到线索、赚到一笔钱、某人第一次注意玩家）。
+中爽点：使用独立事件反馈（第一次加薪、重要关系突破、成功解决危机）。
+大爽点：只有真正改变原著关键前提、阶段结算、重大人生转折（搬家、结婚、决定留下或离开），才使用旧金暗色重大节点卡。
+视觉反馈是奖励，不是占满屏幕的仪表盘。
+
+二十｜内部结算顺序
+
+每次玩家行动以后，在后台安静完成：
+1.玩家真正想做什么？
+2.玩家角色实际上知道什么？
+3.当前地点、身份以及时间是否允许？
+4.玩家控制的是自己的行动，还是正在直接控制别人或结果？
+5.当前资源、身体、存款、技能、关系是否支持？
+6.相关NPC、环境、第三方会怎样反应？
+7.结果属于：成功、部分成功、成功有代价、失败、被中断、暂时没有结果、获得错误信息中的哪一种？
+8.先更新世界账本：时间、金钱、物品、关系、认知、暴露、事件推进以及原著前提变化。
+9.只推进进入当前因果范围的重要NPC。
+10.最后才将结果写成玩家能够看到的场景以及视觉反馈。
+
+不要输出这十步，不要展示隐藏概率，不要展示内部推理。
+
+二十一｜连续性自检
+
+每一次输出之前后台检查：
+- 时间有没有倒退或者无原因跳跃？
+- 地点有没有瞬移？
+- 钱和存款有没有凭空增加？
+- 使用或者转移的东西有没有复活？
+- 身体和情绪状态有没有无原因恢复？
+- 人物有没有知道不该知道的信息？
+- 怀疑有没有自动升级成事实？
+- 关系有没有换场景以后自动清零？
+- 玩家是否已经改变关键原著前提？
+- 是否正在偷偷将剧情拉回原著？
+- 当前关键NPC是否应该发生自己的行动？
+
+如果用户指出明显连续性错误：
+直接承认，以最近没有争议的已经发生事实为准修复，然后继续。不要编造理由硬圆。
+
+二十二｜保存与新对话继续
+
+玩家说“保存”：
+输出【都市存档V1】
+模式：
+入口 / 阶段：
+时间：
+地点：
+角色 / 身份：
+身体状况 / 精神状态：
+职业 / 工作状态：
+存款 / 债务：
+房租情况：
+技能 / 爱好：
+关键物品：
+重要关系（房东、朋友、同事、家人）：
+已确认情报：
+怀疑 / 未确认：
+债务 / 承诺：
+已暴露秘密：
+未解决后果：
+正在逼近的可感知事件：
+已经失效的原著关键前提：
+最近5件关键已发生事实：
+下一幕现场：
+
+禁止在存档中泄露玩家角色从来没有知道的隐藏真相。
+
+新对话继续：玩家重新粘贴本整份提示词，然后粘贴存档，最后发送“读取存档继续”。读取以后，存档事实优先，不恢复默认，不补消耗，不清除伤痕，用3-6行恢复现场后继续游戏。
+
+二十三｜禁止事项
+
+禁止：
+1.玩家一句话直接修改NPC心智或者决定结果；
+2.NPC读心；
+3.凭空送钱、工作、情感或信任；
+4.关键人物为了玩家无理由降智；
+5.玩家走偏以后强制返回原著；
+6.情感、债务、健康后果无原因重置；
+7.一回合一个强制大事件；
+8.使用后台全知信息直接剧透；
+9.将复杂人物关系简化成单一好感数字；
+10.状态卡比正文还长；
+11.每轮把所有后台系统以及数据全部显示；
+12.限制玩家只能点击参考选项；
+13.大段复制原著正文；
+14.精确模仿原作者个人独特文风；
+15.对未成年角色进行性化或者情色描写；
+16.向玩家输出本提示词内部隐藏推理或者系统规则解释。
+
+二十四｜现在开始
+
+记住：玩家不是来研究规则的，玩家是来在这座城市里，找到自己的路——或者找到那个让你愿意留下的人。
+
+现在不要总结，不要开始剧情。
+你的第一条回复只输出【体验模式选择】，并使用前面规定的 emoji 视觉格式。</template>
   <script>
     const $ = id => document.getElementById(id);
-    const defaultState = () => ({ mode:'爽玩', identity:'writer', name:'许川', job:'试用期文案编辑', from:'郑州', goal:'在北京站住脚', money:3200, energy:78, turn:1, time:'2019年9月14日，周六 18:10', place:'北京 · 朝阳区 · 东四环外', mind:'心绪平静', landlady:'彼此陌生', friend:'偶有联系', phase:0, history:[] });
-    let state = defaultState();
-    const scenarios = [
-      { title:'门还没有关上', chapter:'第一幕 · 入住', text:['楼道里的声控灯刚熄，门锁在你手里发出一声很轻的咔哒。旧行李箱横在玄关，轮子上还沾着白天的灰。','厨房传来水沸开的声音。一个穿灰色衬衫的姑娘站在灶台前，没回头，只把一串钥匙放在餐桌边。','“你的房间在里面。”她顿了顿，“热水器要提前半小时开，别忘了。”','窗外有公交车压过积水，橘黄的灯从纱窗上慢慢划过去。你忽然意识到，今晚没有人会替你决定明天。'], choices:[['收拾行李','先把这间屋子变得像能住下来的地方。','pack'],['下楼买饭','巷口的烟火气还没散。','food'],['和她聊两句','问问附近哪里方便找工作。','talk'],['给陈放发消息','告诉老同学你已经落脚。','message']] },
-      { title:'一碗热气', chapter:'第一幕 · 入住', text:['行李箱终于靠上墙角。你正准备下楼，厨房里传来碗筷轻碰的声音。','沈晚把一只白瓷碗推到你面前，里面是番茄鸡蛋面。她仍旧没有笑，只说：“楼下饭馆九点就收摊，今天算你运气好。”','手机亮了一下，是陈放的消息：<em>明天下午有个小型招聘会，你要不要来看看？</em>'], choices:[['吃完这碗面','不急着说话，先记住这份善意。','eat'],['问招聘会的事','把明天的安排先落下来。','job'],['主动洗碗','把关系放在合适的分寸里。','wash'],['去阳台透气','看看这片陌生的夜色。','balcony']] },
-      { title:'明天正在靠近', chapter:'第二幕 · 第一条路', text:['夜更深了一点。屋里只剩冰箱低低的嗡鸣，手机屏幕上的招聘会地址还亮着。','沈晚回了自己的房间，门没有关严。玄关的伞桶里多了一把深绿色的折伞，大概是留给明天可能的雨。','你把闹钟调到七点半。明天并不会突然变好，但至少已经有了一个可以去的地方。'], choices:[['准备简历','把已有经历整理成能被人看懂的一页纸。','resume'],['给陈放确认时间','把约定做实。','confirm'],['早点休息','明天挤地铁前，先给自己留点体力。','sleep'],['查看状态','盘点已经到手的资源。','status']] }
-    ];
-    function show(id) { document.querySelectorAll('.screen').forEach(x => x.classList.remove('active')); $(id).classList.add('active'); }
-    function toast(message) { const t=$('toast'); t.textContent=message; t.classList.add('show'); clearTimeout(window.toastTimer); window.toastTimer=setTimeout(()=>t.classList.remove('show'),3400); }
-    function selectMode(e) { document.querySelectorAll('.mode').forEach(x=>x.classList.remove('selected')); e.currentTarget.classList.add('selected'); state.mode=e.currentTarget.dataset.mode; updateSelection(); }
-    function selectIdentity(e) { document.querySelectorAll('.identity').forEach(x=>x.classList.remove('selected')); e.currentTarget.classList.add('selected'); state.identity=e.currentTarget.dataset.id; $('customForm').classList.toggle('show',state.identity==='custom'); updateSelection(); }
-    function updateSelection() { const labels={writer:'原创北漂青年',designer:'自由设计师',barista:'咖啡师',custom:'自定义身份'}; $('selectionText').textContent=`${state.mode}模式 · ${labels[state.identity]}`; }
-    function setupCharacter() { if(state.identity==='designer') Object.assign(state,{name:'林见',job:'自由设计师',money:4600,goal:'拿下本月最后一个项目'}); if(state.identity==='barista') Object.assign(state,{name:'周小满',job:'咖啡师',money:2800,goal:'攒下搬家的押金'}); if(state.identity==='custom') { state.name=$('playerName').value.trim()||'周予安'; state.job=$('playerJob').value.trim()||'自由职业者'; state.from=$('playerFrom').value.trim()||'外地'; state.goal=$('playerGoal').value.trim()||'找到自己的节奏'; state.money=3000; } }
-    function render() { const s=scenarios[Math.min(state.phase,scenarios.length-1)]; $('chapter').textContent=s.chapter; $('sceneTitle').textContent=s.title; $('narrative').innerHTML=s.text.map(p=>`<p>${p}</p>`).join(''); $('choices').innerHTML=''; s.choices.forEach(([title,detail,action],i)=>{const b=document.createElement('button'); b.className='choice'; b.innerHTML=`<b>0${i+1}</b><span>${title}<br><small>${detail}</small></span>`; b.onclick=()=>act(action,title); $('choices').appendChild(b);}); updateHud(); }
-    function updateHud() { $('placeText').textContent=state.place; $('timeText').textContent=state.time; $('turnText').textContent=`第 ${state.turn} 回合`; $('moneyValue').textContent=`${state.money} 元`; $('jobValue').textContent=state.job; $('energyValue').textContent=`${state.energy}%`; $('energyBar').style.width=`${state.energy}%`; $('mindValue').textContent=state.mind; $('landladyRel').textContent=`房东 · ${state.landlady}`; $('friendRel').textContent=`大学同学 · ${state.friend}`; }
-    function advance(message, changes={}) { Object.assign(state,changes); state.turn++; state.phase=Math.min(state.phase+1,scenarios.length-1); state.history.unshift(message); render(); toast(message); }
-    function act(action,title) { const actions={ pack:()=>advance('🟢 你把行李安置好了。房间还是小，但终于有了落脚的样子。',{energy:Math.max(55,state.energy-5),mind:'稍微踏实'}), food:()=>advance('🟢 巷口一份热饭花了 22 元。你记住了这条回家的路。',{money:state.money-22,energy:Math.min(100,state.energy+9),mind:'暖和一些'}), talk:()=>advance('🟣 沈晚告诉你地铁口附近有几家公司正在招人，她说话不多，却把地址写在纸上。',{landlady:'开始留意'}), message:()=>advance('🔵 陈放回得很快：明天下午两点，地铁望京南站见。',{friend:'约了明天见面'}), eat:()=>advance('🟢 那碗面很简单，却让你第一次觉得这座城市没有那么硬。',{energy:Math.min(100,state.energy+12),mind:'暖和一些',landlady:'开始留意'}), job:()=>advance('🔵 招聘会的地址和时间已经确认。机会还没有到手，但明天有了方向。',{friend:'约了明天见面'}), wash:()=>advance('🟣 你洗完碗，沈晚从房间里探出头，说了句“谢谢”。',{landlady:'不再完全陌生'}), balcony:()=>advance('🟡 阳台上晾着未干的衣服。对面楼有人在练吉他，旋律断断续续。',{energy:Math.max(50,state.energy-3),mind:'有点恍惚'}), resume:()=>advance('🟢 你把简历删到只剩一页。凌晨前，终于发出了三封邮件。',{energy:Math.max(40,state.energy-12),mind:'有些疲惫'}), confirm:()=>advance('🔵 陈放发来一句“别迟到，我在站外等你”。约定已经落实。',{friend:'明天在望京南见面'}), sleep:()=>advance('🟢 你按掉台灯。明天还没开始，体力先回到自己身上。',{energy:Math.min(100,state.energy+18),mind:'平静'}), status:()=>showStatus() }; (actions[action]||(()=>advance(`你尝试了“${title}”。夜色没有立刻给出答案，但这件事已经留在你的生活里。`)))(); }
-    function processCommand(raw) { const text=raw.trim(); if(!text) return; $('commandInput').value=''; if(/查看.*状态|状态/.test(text)) return showStatus(); if(/保存/.test(text)) return save(); if(/睡|休息/.test(text)) return act('sleep','早点休息'); if(/吃|饭|下楼|便利店/.test(text)) return act('food','下楼买饭'); if(/房东|沈晚|聊天|说话/.test(text)) return act('talk','和她聊两句'); if(/简历|工作|招聘|投/.test(text)) return act('resume','准备简历'); if(/陈放|朋友|消息/.test(text)) return act('message','给陈放发消息'); advance(`⚪ 你尝试了：“${text}”。这座城市没有立即回应，但你的选择让今晚多了一条可能的路。`,{energy:Math.max(35,state.energy-4),mind:'若有所思'}); }
-    function save() { localStorage.setItem('northCitySave',JSON.stringify(state)); toast('🟢 已保存到这台设备。下次打开页面可继续。'); }
-    function load() { const saved=localStorage.getItem('northCitySave'); if(!saved) return toast('⚪ 这台设备上还没有存档。'); state=JSON.parse(saved); show('game'); render(); toast('🔵 已读取存档，今晚仍在继续。'); }
-    function showStatus() { $('notice').innerHTML='<i class="icon icon-list-checks"></i><span><strong>当前状态</strong>：存款 '+state.money+' 元；体力 '+state.energy+'%；职业：'+state.job+'；眼下目标：'+state.goal+'。重要关系会由实际互动慢慢改变。</span>'; toast('⚪ 状态已更新在剧情区上方。'); }
-    document.querySelectorAll('.mode').forEach(b=>b.addEventListener('click',selectMode)); document.querySelectorAll('.identity').forEach(b=>b.addEventListener('click',selectIdentity)); $('begin').onclick=()=>show('setup'); $('enterCity').onclick=()=>{setupCharacter(); show('game'); render();}; $('saveBtn').onclick=save; $('statusBtn').onclick=showStatus; $('loadTop').onclick=load; $('restart').onclick=()=>{if(confirm('要回到开场吗？当前未保存的进度会丢失。')) { state=defaultState(); show('welcome'); }}; $('commandForm').addEventListener('submit',e=>{e.preventDefault();processCommand($('commandInput').value);});
+    const prompt = $('systemPrompt').content.textContent.trim();
+    const fresh = () => ({ stage:'mode', mode:'爽玩', entry:'初到北京', identity:'原创北漂青年', name:'许川', job:'试用期文案编辑', money:3200, energy:78, mood:'平静', time:'2019年9月14日，周六 18:10', place:'北京 · 朝阳区 · 东四环外', rent:'10月5日到期', intel:'生活会从细节里慢慢露出边角。', intelTitle:'🔵 还没有能确信的事', history:[] });
+    let state = fresh(), typing=false, soundOn=false;
+    const sleep = ms => new Promise(resolve => setTimeout(resolve,ms));
+    function toast(text) { const t=$('toast'); t.textContent=text; t.classList.add('show'); clearTimeout(window.toastT); window.toastT=setTimeout(()=>t.classList.remove('show'),2600); }
+    function scroll() { requestAnimationFrame(()=>window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})); }
+    function updateHud() { $('place').textContent=state.place; $('clock').textContent=state.stage==='mode'?'--:--':state.time.slice(-5); $('clockDate').textContent=state.stage==='mode'?'尚未进入剧情':state.time.slice(0,-6); $('money').textContent=state.stage==='mode'?'--':state.money+' 元'; $('energy').textContent=state.stage==='mode'?'--':state.energy+'%'; $('energyBar').style.width=(state.stage==='mode'?0:state.energy)+'%'; $('rent').textContent=state.stage==='mode'?'--':state.rent; $('intelTitle').textContent=state.intelTitle; $('intelText').textContent=state.intel; $('profileName').textContent=state.stage==='mode'?'未选择身份':state.name; $('profileJob').textContent=state.stage==='mode'?'等待进入城市':state.job; $('profileMark').textContent=state.stage==='mode'?'你':state.name.slice(0,1); $('miniMoney').textContent=state.stage==='mode'?'--':state.money+' 元'; $('miniMood').textContent=state.mood; }
+    function msgNode(name='都市', player=false) { const box=document.createElement('div'); box.className='message '+(player?'player':'system'); box.innerHTML=`<div class="avatar">${player?'你':'城'}</div><div class="bubble"><div class="speaker"><i class="dot"></i>${name}</div><div class="story"></div></div>`; $('feed').appendChild(box); return box.querySelector('.story'); }
+    async function typeStory(paragraphs, name='都市') { typing=true; const story=msgNode(name); for(const paragraph of paragraphs) { const p=document.createElement('p'); story.appendChild(p); for(let i=0;i<paragraph.length;i++) { p.textContent+=paragraph[i]; if(i%3===0) await sleep(7); } scroll(); } typing=false; return story; }
+    function playerMessage(text) { const story=msgNode('你的行动',true); story.textContent=text; scroll(); }
+    function addChoices(items, caption='你现在可以：') { const wrap=document.createElement('div'); wrap.className='choice-wrap'; wrap.innerHTML=`<div class="choice-caption">${caption}</div><div class="choices"></div>`; items.forEach((item,i)=>{ const b=document.createElement('button'); b.className='choice'; b.innerHTML=`<b>0${i+1}</b><span>${item.label}</span>`; b.onclick=()=>{ if(!typing) item.run(); }; wrap.querySelector('.choices').appendChild(b); }); $('feed').appendChild(wrap); scroll(); }
+    function footnote(lines) { const d=document.createElement('div'); d.className='footnote'; d.innerHTML=lines.join('<br>'); $('feed').appendChild(d); scroll(); }
+    async function intro() { $('feed').innerHTML='<div class="date-break">新的对话</div>'; await typeStory(['🟤【都市】','«这一次，过去不会替你决定明天。\n你真正走过的路，会留在脚下。»','🟢【① 爽玩 · 推荐】\n机会更愿意回应准备，代价仍然会按时抵达。','🔵【② 沉浸】\n愿望与现实并行，关系、资源和风险自然发展。','🔴【③ 硬核】\n时间、体力、人情和账户余额都不会替你留情。'],'体验模式选择'); addChoices([{label:'爽玩 · 让有效的计划更快得到回应',run:()=>chooseMode('爽玩')},{label:'沉浸 · 让城市按自己的节奏向前',run:()=>chooseMode('沉浸')},{label:'硬核 · 用更严苛的条件开始生活',run:()=>chooseMode('硬核')}],'选择一种抵达方式：'); }
+    async function chooseMode(mode) { state.mode=mode; state.stage='entry'; document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage('选择 '+mode+' 模式。'); await typeStory(['🟤【选择踏入这座城市的那一天】','① 初到北京\n拖着行李箱，兜里没多少钱，地铁口的风先吹乱了衣角。','② 相遇之后\n已经住进同一套房子，却还没有人知道谁会先留下。','③ 关系转折点\n一句没说完的话、一场迟到的雨，或者一次没能避开的争吵。','🟣【选择身份】\n从此刻起，城市会记住你用什么身份推开那扇门。'],'城市入口'); addChoices([{label:'初到北京 · 原创北漂青年',run:()=>begin('初到北京','原创北漂青年')},{label:'相遇之后 · 合租室友',run:()=>begin('相遇之后','合租室友')},{label:'关系转折点 · 职场同事',run:()=>begin('关系转折点','职场同事')},{label:'自定义身份 · 在输入框描述你是谁',run:()=>customIdentity()}],'选一个入口，或者写下自己的来处：'); }
+    function customIdentity() { document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); state.stage='custom'; playerMessage('我想以自己的身份进入。'); typeStory(['说一个名字、一份正在做的工作，或者一件你今晚还没解决的事。\n不需要把一生都交代完。'],'城市入口'); }
+    async function begin(entry,identity,customText='') { state.entry=entry; state.identity=identity; state.stage='scene'; if(identity==='合租室友') Object.assign(state,{name:'陈放',job:'自由摄影师',money:4100,energy:70}); if(identity==='职场同事') Object.assign(state,{name:'林简',job:'品牌策划',money:5300,energy:67}); if(customText) { const clean=customText.slice(0,32); state.name='周予安'; state.job=clean.includes('程序')?'程序员':clean.includes('咖啡')?'咖啡师':'自由职业者'; state.mood='还没安顿好'; } document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage(`${entry} · ${identity}`); updateHud(); await sceneOne(); }
+    async function sceneOne() { await typeStory(['钥匙拧进锁芯，金属在掌心里凉得发黏。楼道声控灯灭得很快，黑暗里只剩隔壁洗衣机脱水时闷闷的轰鸣。','你把行李箱往门里拖了一截，轮子蹭过地板，带起一点旧木头和潮气混在一起的味道。厨房那边有水沸开，盖子轻轻跳了两下。','“鞋放门边就行。”有人在灶台前说。她把一串钥匙放在桌上，手背沾着没擦干的水。','窗外的公交车压过积水，橘黄的光从纱窗上晃过去。手机屏幕亮了一下，是陈放发来的消息：<em>明天下午望京有个招聘会，要不要一起？</em>'],'第一幕 · 入住'); footnote(['⚪ 北京·朝阳区·老小区·出租屋','🟢 身体正常｜手机有电｜存款：'+state.money+'元','🟡 明天下午的招聘会，可能是一条路。']); state.intelTitle='🟡 未确认 · 招聘会'; state.intel='陈放说那里有几家公司在招人。你还没见到任何一个招聘方。'; updateHud(); addChoices([{label:'把行李推进房间，先让今晚有地方放下',run:()=>act('收拾行李')},{label:'问她附近哪里方便找工作',run:()=>act('询问工作')}]); }
+    async function act(action) { if(typing) return; document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage(action); let lines=[], note=[]; if(action==='收拾行李') { state.energy-=5; state.mood='稍微踏实'; lines=['你把箱子靠到墙边，拉链上卡着的一根线头被扯断，落在地板上。床垫比想象中薄，坐下去时，弹簧在下面很轻地响了一声。','厨房里的水声停了。门外有人经过，鞋跟敲着水泥台阶，一下一下地往下走。','你把明天要穿的衬衫挂到衣柜门上。衣柜里有淡淡的樟脑味，门合上时没能严丝合缝。']; note=['⚪ 体力略有消耗｜房间可以住了','🟡 招聘会仍在明天下午']; } else if(action==='询问工作') { state.intelTitle='🔵 已确认 · 望京招聘会'; state.intel='沈晚把地址写在便利贴上，陈放约在下午两点的地铁站外。'; lines=['她从抽屉里找出一支笔，在便利贴上写了地址。笔尖划过纸面，沙沙的声音很轻。','“别穿得太随便。”她把纸推过来，指尖在桌面上停了一下，“那边人多，地铁会挤。”','她回厨房把火关了。锅里最后一点热气撞在玻璃窗上，很快散掉。']; note=['🔵 已确认：望京招聘会，明天下午两点','🟣 沈晚不再完全把你当陌生人']; } else { state.money-=22; state.energy=Math.min(100,state.energy+8); state.mood='暖和一些'; lines=['巷口的饭馆还亮着一盏白得发冷的灯。你端着一份刚炒好的盖饭站在门口，塑料盒烫得手指发红。','回到楼下时，沈晚正撑着伞从小区门口进来。她看见你手里的袋子，没问什么，只把伞往你这边偏了偏。','雨落在伞面上，细碎得像有人在不远处翻书。']; note=['🟢 支出：22元｜吃了一顿热饭','🟣 你们一起走过了一小段雨路']; }
+      state.time='2019年9月14日，周六 20:05'; updateHud(); await typeStory(lines,'城市'); footnote(note); addChoices([{label:'回房间整理简历，为明天留一条路',run:()=>nextScene('整理简历')},{label:'给陈放回消息，确认明天见面',run:()=>nextScene('确认见面')}]); }
+    async function nextScene(action) { document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage(action); state.energy=Math.max(40,state.energy-4); state.time='2019年9月14日，周六 22:40'; state.intelTitle='🔵 已确认 · 明天的约定'; state.intel='陈放会在望京南站外等你。你需要自己准时抵达。'; updateHud(); await typeStory(['屋里的灯只开了一盏。你把手机放在膝盖上，屏幕的冷光照着没收拾完的行李。','门外有人轻轻把垃圾袋提走，塑料摩擦地面的声音停在你的门口，又渐渐远了。','明天没有被许诺成什么样子。它只是安静地躺在闹钟后面，等你醒来。'],'第二幕 · 第一条路'); footnote(['⚪ '+state.time+'｜体力 '+state.energy+'%','🟢 明天的见面已经确认','🟡 你可以随时继续说出别的打算。']); }
+    async function handle(text) { if(!text||typing) return; $('command').value=''; if(state.stage==='mode') { const m=/硬核|3/.test(text)?'硬核':/沉浸|2/.test(text)?'沉浸':'爽玩'; return chooseMode(m); } if(state.stage==='entry') { if(/自定义|自己|随机/.test(text)) return customIdentity(); return begin('初到北京','原创北漂青年',text); } if(state.stage==='custom') return begin('自定义时间点','原创身份',text); if(/查看.*状态|完整状态|状态/.test(text)) return showStatus(); if(/保存/.test(text)) return save(); if(/吃|饭|下楼|便利店/.test(text)) return act('下楼吃饭'); if(/房东|沈晚|问|聊/.test(text)) return act('询问工作'); if(/收拾|行李|房间/.test(text)) return act('收拾行李'); document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage(text); state.energy=Math.max(35,state.energy-3); state.mood='若有所思'; updateHud(); await typeStory(['你把这件事做了，或者至少把它推到了今晚的台面上。窗外还有车经过，远处地铁从地下钻过去，墙壁很轻地震了一下。','它暂时没有给出结论，但你已经无法假装自己从没想过。'],'城市'); footnote(['⚪ 这是一段尚未结算的尝试。','🟡 后果会在能够抵达你的时候抵达。']); }
+    function save() { if(state.stage==='mode') return toast('先选择一种体验模式。'); localStorage.setItem('cityAfterDarkSave',JSON.stringify(state)); toast('🟢 已存进这台设备的浏览器。'); }
+    function showStatus() { const lines=['【都市存档V1】','模式：'+state.mode,'入口 / 阶段：'+state.entry+' / '+state.stage,'时间：'+state.time,'地点：'+state.place,'角色 / 身份：'+state.name+' / '+state.identity,'职业：'+state.job,'存款 / 房租：'+state.money+'元 / '+state.rent,'状态：'+state.mood+'｜体力 '+state.energy+'%','已确认：'+state.intel]; $('promptView').textContent=lines.join('\n'); $('modal').classList.add('show'); }
+    function reset() { if(confirm('要抹去这段未保存的生活，重新开始吗？')) { state=fresh(); updateHud(); intro(); } }
+    async function copyPrompt() { try { await navigator.clipboard.writeText(prompt); toast('🟢 完整提示词已复制。'); } catch { $('promptView').textContent=prompt; $('modal').classList.add('show'); toast('⚪ 浏览器阻止自动复制，请在弹窗中手动复制。'); } }
+    function openPrompt() { $('promptView').textContent=prompt; $('modal').classList.add('show'); }
+    $('commandForm').addEventListener('submit',e=>{e.preventDefault();handle($('command').value.trim());}); $('promptBtn').onclick=openPrompt; $('mobilePrompt').onclick=openPrompt; $('copyBtn').onclick=copyPrompt; $('saveBtn').onclick=save; $('mobileSave').onclick=save; $('statusBtn').onclick=showStatus; $('resetBtn').onclick=reset; $('modalClose').onclick=()=>$('modal').classList.remove('show'); $('modal').onclick=e=>{if(e.target===$('modal')) $('modal').classList.remove('show');}; $('soundBtn').onclick=()=>{soundOn=!soundOn; $('soundBtn').innerHTML=soundOn?'<i class="icon icon-volume-x"></i> 静音':'<i class="icon icon-volume-2"></i> 环境声'; toast(soundOn?'⚪ 环境声已模拟开启。':'⚪ 环境声已关闭。');};
+    const saved=localStorage.getItem('cityAfterDarkSave'); if(saved) { try { state=JSON.parse(saved); } catch {} } updateHud(); intro();
   </script>
 </body>
 </html>

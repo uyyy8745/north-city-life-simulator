@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#173d3b" />
+  <title>北城余温 - 都市生活模拟器</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/lucide-static@0.468.0/font/lucide.css" />
+  <style>
+    :root { --ink:#19302f; --pine:#1e514d; --moss:#5a7d62; --paper:#f7f3e9; --cream:#efe7d3; --brick:#a3473f; --gold:#bd8b42; --line:rgba(25,48,47,.16); --muted:#63706b; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; color:var(--ink); font-family:"Noto Sans SC",system-ui,sans-serif; background:#1e514d url("https://images.unsplash.com/photo-1508050919630-b135583b29ab?auto=format&fit=crop&w=1800&q=85") center/cover fixed; }
+    button,input,textarea { font:inherit; }
+    button { cursor:pointer; }
+    .backdrop { min-height:100vh; padding:28px; background:rgba(13,38,36,.58); }
+    .shell { max-width:1120px; min-height:calc(100vh - 56px); margin:0 auto; overflow:hidden; border:1px solid rgba(255,255,255,.35); border-radius:8px; background:var(--paper); box-shadow:0 24px 80px rgba(0,0,0,.28); }
+    .topbar { min-height:66px; display:flex; align-items:center; justify-content:space-between; gap:18px; padding:0 26px; border-bottom:1px solid var(--line); background:#fbf8ef; }
+    .brand { display:flex; gap:11px; align-items:center; font-family:"Noto Serif SC",serif; font-size:19px; font-weight:700; letter-spacing:0; }
+    .brand-mark { width:31px; height:31px; display:grid; place-items:center; color:#f8efdc; background:var(--brick); border-radius:4px; }
+    .brand small { display:block; margin-top:1px; color:var(--muted); font-family:"Noto Sans SC",sans-serif; font-size:11px; font-weight:500; }
+    .top-actions { display:flex; align-items:center; gap:9px; }
+    .icon-btn { width:34px; height:34px; border:1px solid var(--line); border-radius:4px; color:var(--ink); background:transparent; }
+    .icon-btn:hover { background:var(--cream); }
+    .screen { display:none; min-height:calc(100vh - 122px); }
+    .screen.active { display:flex; }
+    #welcome { align-items:center; padding:42px; background:rgba(247,243,233,.92); }
+    .welcome-copy { width:min(590px,100%); }
+    .eyebrow { display:flex; align-items:center; gap:8px; color:var(--brick); font-size:13px; font-weight:700; }
+    .eyebrow::before { content:""; width:25px; height:2px; background:var(--brick); }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { margin:17px 0 14px; font:700 clamp(40px,6vw,67px)/1.1 "Noto Serif SC",serif; letter-spacing:0; }
+    .lead { max-width:520px; color:#50605a; font-size:16px; line-height:1.9; }
+    .entry-meta { display:flex; flex-wrap:wrap; gap:14px; margin:30px 0; color:#66716a; font-size:13px; }
+    .entry-meta span { display:flex; align-items:center; gap:6px; }
+    .primary { min-height:44px; padding:0 19px; border:0; border-radius:4px; color:#fff; background:var(--pine); font-weight:700; }
+    .primary:hover { background:#173f3c; }
+    .primary i { margin-left:8px; }
+    .setup { display:block; padding:35px clamp(22px,5vw,68px) 48px; background:#f8f5ed; }
+    .setup-inner { max-width:900px; margin:0 auto; }
+    .setup h2 { margin:12px 0 7px; font:700 30px/1.3 "Noto Serif SC",serif; }
+    .setup-intro { margin-bottom:27px; color:var(--muted); }
+    .mode-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; }
+    .mode { min-height:190px; padding:20px; border:1px solid var(--line); border-radius:5px; text-align:left; color:var(--ink); background:#fffdf7; transition:.18s ease; }
+    .mode:hover,.mode.selected { border-color:var(--pine); transform:translateY(-2px); box-shadow:0 8px 16px rgba(30,81,77,.1); }
+    .mode .number { display:block; color:var(--brick); font:700 23px "Noto Serif SC",serif; }
+    .mode strong { display:block; margin:13px 0 7px; font-size:18px; }
+    .mode p { margin:0; color:var(--muted); font-size:13px; line-height:1.65; }
+    .setup-section { margin-top:33px; }
+    .setup-section h3 { margin-bottom:12px; font-size:15px; }
+    .identity-list { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+    .identity { display:flex; align-items:center; gap:13px; min-height:65px; padding:12px 15px; border:1px solid var(--line); border-radius:4px; background:#fffdf7; text-align:left; color:var(--ink); }
+    .identity:hover,.identity.selected { border-color:var(--pine); background:#eff5ef; }
+    .identity i { color:var(--brick); font-size:20px; }
+    .identity strong { display:block; font-size:14px; }
+    .identity small { display:block; margin-top:2px; color:var(--muted); font-size:12px; }
+    .custom-form { display:none; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:14px; }
+    .custom-form.show { display:grid; }
+    .field { min-width:0; }
+    .field label { display:block; margin-bottom:5px; color:var(--muted); font-size:12px; }
+    .field input { width:100%; height:39px; padding:0 10px; border:1px solid var(--line); border-radius:3px; outline:none; background:#fff; color:var(--ink); }
+    .field input:focus { border-color:var(--pine); box-shadow:0 0 0 3px rgba(30,81,77,.12); }
+    .setup-footer { display:flex; justify-content:space-between; align-items:center; gap:18px; margin-top:30px; }
+    .selection-text { color:var(--muted); font-size:13px; }
+    #game { flex-direction:column; background:#f5f0e5; }
+    .game-head { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:15px 26px; border-bottom:1px solid var(--line); background:#fbf8ef; }
+    .place { display:flex; align-items:center; gap:10px; }
+    .place i { color:var(--brick); font-size:20px; }
+    .place strong { display:block; font-size:14px; }
+    .place small { display:block; margin-top:2px; color:var(--muted); font-size:12px; }
+    .turn { padding:6px 10px; border:1px solid rgba(189,139,66,.45); border-radius:4px; color:#7b581f; background:#f8efd9; font-size:12px; }
+    .game-layout { display:grid; grid-template-columns:minmax(0,1fr) 285px; flex:1; }
+    .story { padding:clamp(24px,4vw,48px) clamp(22px,5vw,64px) 30px; }
+    .chapter { color:#9b7135; font:600 13px "Noto Serif SC",serif; }
+    .story h2 { margin:7px 0 24px; font:700 29px/1.25 "Noto Serif SC",serif; }
+    .narrative { max-width:680px; min-height:270px; color:#263c38; font-family:"Noto Serif SC",serif; font-size:16px; line-height:2; }
+    .narrative p { margin-bottom:15px; }
+    .notice { display:flex; gap:10px; max-width:680px; margin:22px 0; padding:13px 14px; border-left:3px solid var(--moss); background:#edf3eb; color:#415a48; font-size:13px; line-height:1.65; }
+    .choices-title { margin:26px 0 10px; color:var(--muted); font-size:13px; font-weight:700; }
+    .choices { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; max-width:680px; }
+    .choice { min-height:62px; padding:11px 13px; border:1px solid var(--line); border-radius:4px; text-align:left; color:var(--ink); background:#fffdf7; }
+    .choice:hover { border-color:var(--pine); background:#eef4eb; }
+    .choice b { display:block; margin-bottom:3px; color:var(--brick); font-size:12px; }
+    .choice span { font-size:13px; }
+    .command { display:flex; gap:8px; max-width:680px; margin-top:23px; }
+    .command input { min-width:0; flex:1; height:43px; padding:0 13px; border:1px solid var(--line); border-radius:4px; outline:none; background:#fff; }
+    .command input:focus { border-color:var(--pine); box-shadow:0 0 0 3px rgba(30,81,77,.1); }
+    .send { width:43px; border:0; border-radius:4px; color:white; background:var(--brick); }
+    .side { padding:22px 19px; border-left:1px solid var(--line); background:#f0e8d8; }
+    .side h3 { margin:0 0 13px; font:700 17px "Noto Serif SC",serif; }
+    .status { padding:13px 0; border-top:1px solid rgba(25,48,47,.13); }
+    .status:first-of-type { border-top:0; }
+    .status-label { display:flex; justify-content:space-between; gap:9px; color:var(--muted); font-size:12px; }
+    .status-value { margin-top:5px; font-size:14px; font-weight:700; }
+    .meter { height:5px; overflow:hidden; margin-top:8px; border-radius:99px; background:#dbd2bf; }
+    .meter i { display:block; height:100%; background:var(--moss); }
+    .relationship { margin-top:26px; }
+    .person { display:flex; gap:10px; align-items:center; padding:11px 0; border-top:1px solid rgba(25,48,47,.13); }
+    .avatar { width:31px; height:31px; display:grid; flex:0 0 auto; place-items:center; border-radius:50%; color:#fff; background:var(--brick); font:600 13px "Noto Serif SC",serif; }
+    .person strong { display:block; font-size:13px; }
+    .person small { display:block; margin-top:2px; color:var(--muted); font-size:11px; }
+    .status-actions { display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-top:25px; }
+    .utility { height:34px; border:1px solid var(--line); border-radius:3px; color:var(--ink); background:#fbf8ef; font-size:12px; }
+    .utility:hover { background:#fff; }
+    .toast { position:fixed; z-index:5; right:28px; bottom:28px; display:none; max-width:330px; padding:13px 17px; border-left:4px solid var(--moss); color:#f8f6ef; background:#183c38; box-shadow:0 9px 23px rgba(0,0,0,.24); font-size:13px; line-height:1.55; }
+    .toast.show { display:block; animation:rise .25s ease both; }
+    @keyframes rise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    @media (max-width:760px) { body { background-position:62% center; } .backdrop { padding:0; } .shell { min-height:100vh; border:0; border-radius:0; } .topbar { padding:0 18px; } #welcome { padding:48px 23px; background:rgba(247,243,233,.93); } .mode-grid,.identity-list { grid-template-columns:1fr; } .custom-form { grid-template-columns:1fr; } .setup { padding:29px 21px 38px; } .setup-footer { align-items:flex-start; flex-direction:column; } .game-head { padding:13px 18px; } .game-layout { grid-template-columns:1fr; } .side { order:-1; display:grid; grid-template-columns:1fr 1fr; gap:0 18px; padding:17px 18px; border-bottom:1px solid var(--line); border-left:0; } .side h3 { grid-column:1/-1; } .relationship { margin-top:0; } .status-actions { grid-column:1/-1; margin-top:12px; } .story { padding:28px 19px; } .choices { grid-template-columns:1fr; } .narrative { min-height:0; } .toast { right:16px; bottom:16px; left:16px; max-width:none; } }
+  </style>
+</head>
+<body>
+  <div class="backdrop"><main class="shell">
+    <header class="topbar"><div class="brand"><span class="brand-mark"><i class="icon icon-building-2"></i></span><span>北城余温<small>都市生活模拟器</small></span></div><div class="top-actions"><button class="icon-btn" id="loadTop" title="读取本地存档" aria-label="读取本地存档"><i class="icon icon-folder-open"></i></button><button class="icon-btn" id="restart" title="重新开始" aria-label="重新开始"><i class="icon icon-rotate-ccw"></i></button></div></header>
+
+    <section class="screen active" id="welcome"><div class="welcome-copy"><div class="eyebrow">北京 · 2019 · 初秋</div><h1>在这座城市里，<br>过一段自己的生活。</h1><p class="lead">一张窄床，一份还没落定的工作，一扇随时会响起敲门声的门。每一次选择都会在城市里留下痕迹。</p><div class="entry-meta"><span><i class="icon icon-map-pin"></i> 可探索的都市日常</span><span><i class="icon icon-message-square-text"></i> 支持自由输入</span><span><i class="icon icon-save"></i> 本地存档</span></div><button class="primary" id="begin">开始进入 <i class="icon icon-arrow-right"></i></button></div></section>
+
+    <section class="screen" id="setup"><div class="setup-inner"><div class="eyebrow">体验模式</div><h2>选择你看待这座城市的方式</h2><p class="setup-intro">机会与后果都会存在，只是它们抵达你的速度不同。</p><div class="mode-grid">
+      <button class="mode selected" data-mode="爽玩"><span class="number">01</span><strong>爽玩 · 推荐</strong><p>有效的计划更容易得到回应，失败也会留下下一步的线索。</p></button>
+      <button class="mode" data-mode="沉浸"><span class="number">02</span><strong>沉浸</strong><p>愿望与现实并行，关系、资源和机会自然推进。</p></button>
+      <button class="mode" data-mode="硬核"><span class="number">03</span><strong>硬核</strong><p>时间、体力和存款都很具体，城市不会特意迁就任何人。</p></button>
+    </div>
+    <div class="setup-section"><h3>选择身份</h3><div class="identity-list">
+      <button class="identity selected" data-id="writer"><i class="icon icon-pen-line"></i><span><strong>原创北漂青年</strong><small>从一间合租房和一份试用期工作开始</small></span></button>
+      <button class="identity" data-id="designer"><i class="icon icon-palette"></i><span><strong>自由设计师</strong><small>项目不稳定，时间属于自己，也属于客户</small></span></button>
+      <button class="identity" data-id="barista"><i class="icon icon-coffee"></i><span><strong>咖啡师</strong><small>在日复一日的早班里认识形形色色的人</small></span></button>
+      <button class="identity" data-id="custom"><i class="icon icon-user-round-pen"></i><span><strong>自定义身份</strong><small>名字、来处与正在寻找的生活由你决定</small></span></button>
+    </div>
+    <div class="custom-form" id="customForm"><div class="field"><label for="playerName">你的名字</label><input id="playerName" maxlength="12" placeholder="例如：许知远" /></div><div class="field"><label for="playerJob">现在的职业</label><input id="playerJob" maxlength="18" placeholder="例如：短视频剪辑师" /></div><div class="field"><label for="playerFrom">来自哪里</label><input id="playerFrom" maxlength="18" placeholder="例如：武汉" /></div><div class="field"><label for="playerGoal">眼下最想解决的事</label><input id="playerGoal" maxlength="24" placeholder="例如：找一份稳定工作" /></div></div></div>
+    <div class="setup-footer"><span class="selection-text" id="selectionText">爽玩模式 · 原创北漂青年</span><button class="primary" id="enterCity">踏入这座城市 <i class="icon icon-arrow-right"></i></button></div></div></section>
+
+    <section class="screen" id="game"><div class="game-head"><div class="place"><i class="icon icon-map-pinned"></i><span><strong id="placeText">北京 · 朝阳区 · 东四环外</strong><small id="timeText">2019年9月14日，周六 18:10</small></span></div><span class="turn" id="turnText">第 1 回合</span></div><div class="game-layout"><article class="story"><div class="chapter" id="chapter">第一幕 · 入住</div><h2 id="sceneTitle">门还没有关上</h2><div class="narrative" id="narrative"></div><div class="notice" id="notice"><i class="icon icon-sparkles"></i><span>这里没有固定答案。你可以点选行动，也可以用下面的输入框说出你想做的事。</span></div><div class="choices-title">你现在可以：</div><div class="choices" id="choices"></div><form class="command" id="commandForm"><input id="commandInput" autocomplete="off" placeholder="例如：给母亲报个平安 / 下楼买一份热饭 / 查看状态" /><button class="send" aria-label="执行行动" title="执行行动"><i class="icon icon-send"></i></button></form></article>
+      <aside class="side"><h3>此刻的你</h3><div><div class="status"><div class="status-label"><span>存款</span><span id="moneyValue">3200 元</span></div><div class="status-value" id="jobValue">试用期文案编辑</div></div><div class="status"><div class="status-label"><span>体力</span><span id="energyValue">78%</span></div><div class="meter"><i id="energyBar" style="width:78%"></i></div></div><div class="status"><div class="status-label"><span>房租</span><span id="rentValue">10月5日到期</span></div><div class="status-value" id="mindValue">心绪平静</div></div></div><div class="relationship"><h3>正在进入生活的人</h3><div class="person"><span class="avatar">沈</span><span><strong>沈晚</strong><small id="landladyRel">房东 · 彼此陌生</small></span></div><div class="person"><span class="avatar" style="background:#5a7d62">陈</span><span><strong>陈放</strong><small id="friendRel">大学同学 · 偶有联系</small></span></div></div><div class="status-actions"><button class="utility" id="saveBtn"><i class="icon icon-save"></i> 保存</button><button class="utility" id="statusBtn"><i class="icon icon-list-tree"></i> 查看状态</button></div></aside>
+    </div></section>
+  </main></div><div class="toast" id="toast" role="status"></div>
+  <script>
+    const $ = id => document.getElementById(id);
+    const defaultState = () => ({ mode:'爽玩', identity:'writer', name:'许川', job:'试用期文案编辑', from:'郑州', goal:'在北京站住脚', money:3200, energy:78, turn:1, time:'2019年9月14日，周六 18:10', place:'北京 · 朝阳区 · 东四环外', mind:'心绪平静', landlady:'彼此陌生', friend:'偶有联系', phase:0, history:[] });
+    let state = defaultState();
+    const scenarios = [
+      { title:'门还没有关上', chapter:'第一幕 · 入住', text:['楼道里的声控灯刚熄，门锁在你手里发出一声很轻的咔哒。旧行李箱横在玄关，轮子上还沾着白天的灰。','厨房传来水沸开的声音。一个穿灰色衬衫的姑娘站在灶台前，没回头，只把一串钥匙放在餐桌边。','“你的房间在里面。”她顿了顿，“热水器要提前半小时开，别忘了。”','窗外有公交车压过积水，橘黄的灯从纱窗上慢慢划过去。你忽然意识到，今晚没有人会替你决定明天。'], choices:[['收拾行李','先把这间屋子变得像能住下来的地方。','pack'],['下楼买饭','巷口的烟火气还没散。','food'],['和她聊两句','问问附近哪里方便找工作。','talk'],['给陈放发消息','告诉老同学你已经落脚。','message']] },
+      { title:'一碗热气', chapter:'第一幕 · 入住', text:['行李箱终于靠上墙角。你正准备下楼，厨房里传来碗筷轻碰的声音。','沈晚把一只白瓷碗推到你面前，里面是番茄鸡蛋面。她仍旧没有笑，只说：“楼下饭馆九点就收摊，今天算你运气好。”','手机亮了一下，是陈放的消息：<em>明天下午有个小型招聘会，你要不要来看看？</em>'], choices:[['吃完这碗面','不急着说话，先记住这份善意。','eat'],['问招聘会的事','把明天的安排先落下来。','job'],['主动洗碗','把关系放在合适的分寸里。','wash'],['去阳台透气','看看这片陌生的夜色。','balcony']] },
+      { title:'明天正在靠近', chapter:'第二幕 · 第一条路', text:['夜更深了一点。屋里只剩冰箱低低的嗡鸣，手机屏幕上的招聘会地址还亮着。','沈晚回了自己的房间，门没有关严。玄关的伞桶里多了一把深绿色的折伞，大概是留给明天可能的雨。','你把闹钟调到七点半。明天并不会突然变好，但至少已经有了一个可以去的地方。'], choices:[['准备简历','把已有经历整理成能被人看懂的一页纸。','resume'],['给陈放确认时间','把约定做实。','confirm'],['早点休息','明天挤地铁前，先给自己留点体力。','sleep'],['查看状态','盘点已经到手的资源。','status']] }
+    ];
+    function show(id) { document.querySelectorAll('.screen').forEach(x => x.classList.remove('active')); $(id).classList.add('active'); }
+    function toast(message) { const t=$('toast'); t.textContent=message; t.classList.add('show'); clearTimeout(window.toastTimer); window.toastTimer=setTimeout(()=>t.classList.remove('show'),3400); }
+    function selectMode(e) { document.querySelectorAll('.mode').forEach(x=>x.classList.remove('selected')); e.currentTarget.classList.add('selected'); state.mode=e.currentTarget.dataset.mode; updateSelection(); }
+    function selectIdentity(e) { document.querySelectorAll('.identity').forEach(x=>x.classList.remove('selected')); e.currentTarget.classList.add('selected'); state.identity=e.currentTarget.dataset.id; $('customForm').classList.toggle('show',state.identity==='custom'); updateSelection(); }
+    function updateSelection() { const labels={writer:'原创北漂青年',designer:'自由设计师',barista:'咖啡师',custom:'自定义身份'}; $('selectionText').textContent=`${state.mode}模式 · ${labels[state.identity]}`; }
+    function setupCharacter() { if(state.identity==='designer') Object.assign(state,{name:'林见',job:'自由设计师',money:4600,goal:'拿下本月最后一个项目'}); if(state.identity==='barista') Object.assign(state,{name:'周小满',job:'咖啡师',money:2800,goal:'攒下搬家的押金'}); if(state.identity==='custom') { state.name=$('playerName').value.trim()||'周予安'; state.job=$('playerJob').value.trim()||'自由职业者'; state.from=$('playerFrom').value.trim()||'外地'; state.goal=$('playerGoal').value.trim()||'找到自己的节奏'; state.money=3000; } }
+    function render() { const s=scenarios[Math.min(state.phase,scenarios.length-1)]; $('chapter').textContent=s.chapter; $('sceneTitle').textContent=s.title; $('narrative').innerHTML=s.text.map(p=>`<p>${p}</p>`).join(''); $('choices').innerHTML=''; s.choices.forEach(([title,detail,action],i)=>{const b=document.createElement('button'); b.className='choice'; b.innerHTML=`<b>0${i+1}</b><span>${title}<br><small>${detail}</small></span>`; b.onclick=()=>act(action,title); $('choices').appendChild(b);}); updateHud(); }
+    function updateHud() { $('placeText').textContent=state.place; $('timeText').textContent=state.time; $('turnText').textContent=`第 ${state.turn} 回合`; $('moneyValue').textContent=`${state.money} 元`; $('jobValue').textContent=state.job; $('energyValue').textContent=`${state.energy}%`; $('energyBar').style.width=`${state.energy}%`; $('mindValue').textContent=state.mind; $('landladyRel').textContent=`房东 · ${state.landlady}`; $('friendRel').textContent=`大学同学 · ${state.friend}`; }
+    function advance(message, changes={}) { Object.assign(state,changes); state.turn++; state.phase=Math.min(state.phase+1,scenarios.length-1); state.history.unshift(message); render(); toast(message); }
+    function act(action,title) { const actions={ pack:()=>advance('🟢 你把行李安置好了。房间还是小，但终于有了落脚的样子。',{energy:Math.max(55,state.energy-5),mind:'稍微踏实'}), food:()=>advance('🟢 巷口一份热饭花了 22 元。你记住了这条回家的路。',{money:state.money-22,energy:Math.min(100,state.energy+9),mind:'暖和一些'}), talk:()=>advance('🟣 沈晚告诉你地铁口附近有几家公司正在招人，她说话不多，却把地址写在纸上。',{landlady:'开始留意'}), message:()=>advance('🔵 陈放回得很快：明天下午两点，地铁望京南站见。',{friend:'约了明天见面'}), eat:()=>advance('🟢 那碗面很简单，却让你第一次觉得这座城市没有那么硬。',{energy:Math.min(100,state.energy+12),mind:'暖和一些',landlady:'开始留意'}), job:()=>advance('🔵 招聘会的地址和时间已经确认。机会还没有到手，但明天有了方向。',{friend:'约了明天见面'}), wash:()=>advance('🟣 你洗完碗，沈晚从房间里探出头，说了句“谢谢”。',{landlady:'不再完全陌生'}), balcony:()=>advance('🟡 阳台上晾着未干的衣服。对面楼有人在练吉他，旋律断断续续。',{energy:Math.max(50,state.energy-3),mind:'有点恍惚'}), resume:()=>advance('🟢 你把简历删到只剩一页。凌晨前，终于发出了三封邮件。',{energy:Math.max(40,state.energy-12),mind:'有些疲惫'}), confirm:()=>advance('🔵 陈放发来一句“别迟到，我在站外等你”。约定已经落实。',{friend:'明天在望京南见面'}), sleep:()=>advance('🟢 你按掉台灯。明天还没开始，体力先回到自己身上。',{energy:Math.min(100,state.energy+18),mind:'平静'}), status:()=>showStatus() }; (actions[action]||(()=>advance(`你尝试了“${title}”。夜色没有立刻给出答案，但这件事已经留在你的生活里。`)))(); }
+    function processCommand(raw) { const text=raw.trim(); if(!text) return; $('commandInput').value=''; if(/查看.*状态|状态/.test(text)) return showStatus(); if(/保存/.test(text)) return save(); if(/睡|休息/.test(text)) return act('sleep','早点休息'); if(/吃|饭|下楼|便利店/.test(text)) return act('food','下楼买饭'); if(/房东|沈晚|聊天|说话/.test(text)) return act('talk','和她聊两句'); if(/简历|工作|招聘|投/.test(text)) return act('resume','准备简历'); if(/陈放|朋友|消息/.test(text)) return act('message','给陈放发消息'); advance(`⚪ 你尝试了：“${text}”。这座城市没有立即回应，但你的选择让今晚多了一条可能的路。`,{energy:Math.max(35,state.energy-4),mind:'若有所思'}); }
+    function save() { localStorage.setItem('northCitySave',JSON.stringify(state)); toast('🟢 已保存到这台设备。下次打开页面可继续。'); }
+    function load() { const saved=localStorage.getItem('northCitySave'); if(!saved) return toast('⚪ 这台设备上还没有存档。'); state=JSON.parse(saved); show('game'); render(); toast('🔵 已读取存档，今晚仍在继续。'); }
+    function showStatus() { $('notice').innerHTML='<i class="icon icon-list-checks"></i><span><strong>当前状态</strong>：存款 '+state.money+' 元；体力 '+state.energy+'%；职业：'+state.job+'；眼下目标：'+state.goal+'。重要关系会由实际互动慢慢改变。</span>'; toast('⚪ 状态已更新在剧情区上方。'); }
+    document.querySelectorAll('.mode').forEach(b=>b.addEventListener('click',selectMode)); document.querySelectorAll('.identity').forEach(b=>b.addEventListener('click',selectIdentity)); $('begin').onclick=()=>show('setup'); $('enterCity').onclick=()=>{setupCharacter(); show('game'); render();}; $('saveBtn').onclick=save; $('statusBtn').onclick=showStatus; $('loadTop').onclick=load; $('restart').onclick=()=>{if(confirm('要回到开场吗？当前未保存的进度会丢失。')) { state=defaultState(); show('welcome'); }}; $('commandForm').addEventListener('submit',e=>{e.preventDefault();processCommand($('commandInput').value);});
+  </script>
+</body>
+</html>

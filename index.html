@@ -71,10 +71,10 @@
 <body>
   <div class="veil"><div class="app">
     <aside class="left">
-      <div class="brand"><span class="brand-mark"><i class="icon icon-building-2"></i></span><span>未熄灯的城<small>CITY AFTER DARK · V3</small></span></div>
+      <div class="brand"><span class="brand-mark"><i class="icon icon-building-2"></i></span><span>未熄灯的城<small>CITY AFTER DARK · V4</small></span></div>
       <div class="section-label">当前对话</div>
       <button class="nav active"><i class="icon icon-message-square"></i><span>都市 · 生活模拟</span><span>进行中</span></button>
-      <button class="nav" id="promptBtn"><i class="icon icon-scroll-text"></i><span>内置 System Prompt V3</span></button>
+      <button class="nav" id="promptBtn"><i class="icon icon-scroll-text"></i><span>内置 System Prompt V4</span></button>
       <button class="nav" id="copyBtn"><i class="icon icon-copy"></i><span>复制完整提示词</span></button>
       <div class="section-label">档案</div>
       <button class="nav" id="saveBtn"><i class="icon icon-save"></i><span>保存进度</span></button>
@@ -88,7 +88,7 @@
     </main>
     <aside class="right"><h2>今晚的账本</h2><p class="sub">只显示此刻需要带在身上的事</p><div class="clock"><div class="clock-time" id="clock">--:--</div><div class="clock-date" id="clockDate">尚未进入剧情</div></div><div class="status-row"><div class="status-top"><span>存款</span><b id="money">--</b></div></div><div class="status-row"><div class="status-top"><span>体力</span><b id="energy">--</b></div><div class="progress"><i id="energyBar" style="width:0%"></i></div></div><div class="status-row"><div class="status-top"><span>房租</span><b id="rent">--</b></div></div><div class="intel"><h3>已知 / 未确认</h3><div class="intel-item"><b id="intelTitle">🔵 还没有能确信的事</b><p id="intelText">生活会从细节里慢慢露出边角。</p></div></div><div class="right-actions"><button id="statusBtn"><i class="icon icon-list-tree"></i> 完整状态</button><button id="soundBtn"><i class="icon icon-volume-2"></i> 环境声</button></div></aside>
   </div></div>
-  <div class="modal" id="modal"><div class="modal-box"><button class="modal-close" id="modalClose" title="关闭" aria-label="关闭"><i class="icon icon-x"></i></button><h2>完整内置 System Prompt V3</h2><pre id="promptView"></pre></div></div><div class="toast" id="toast" role="status"></div>
+  <div class="modal" id="modal"><div class="modal-box"><button class="modal-close" id="modalClose" title="关闭" aria-label="关闭"><i class="icon icon-x"></i></button><h2>完整内置 System Prompt V4</h2><pre id="promptView"></pre></div></div><div class="toast" id="toast" role="status"></div>
   <template id="systemPrompt">《我的二十六岁女房客》DeepSeek 复制即玩｜真彩世界模拟器 V2（沉浸质感增强版）
 
 使用方法
@@ -807,9 +807,60 @@ emoji：🟤世界/节点，🟢获得/正常，🔵确认，🟡未知，🔴�
 
 记住：玩家是来看见这座城市、看见那个人、看见自己在这座城市里怎么活下来的。
 现在不总结、不开始剧情。第一条回复只输出【体验模式选择】，按规定的emoji格式。</template>
+  <template id="systemPromptV4">《我的二十六岁女房客》DeepSeek 复制即玩｜电影镜头模拟器 V4
+
+使用说明：将以下全部内容复制进 DeepSeek 新对话，一次性发送，无需上传文件。
+
+你现在负责运行【都市·生活模拟】。
+本版本核心要求：每一轮输出都是“正在播放的影像”，镜头必须在运动，时间必须在流动，物体必须在变化。禁止任何形式的静态场景描写。每一段文字都必须是“连续动作”而非“定格画面”。
+
+收到整段提示后：不总结、不解说、不展示推理；第一条回复只输出【体验模式选择】；正文用自然中文，emoji仅作轻量标记。
+
+【体验模式选择】
+🟤【都市】«这一次，原著只是过去。你进去以后真正做过的事情，会留下来。»
+🟢【① 爽玩 · 推荐】机会更多、反馈更快、少走无意义弯路。聪明计划得到真实回报，但代价和失败仍存在。
+🔵【② 沉浸】愿望与世界约束平衡，机会、关系、资源和风险按当前世界自然发展。
+🔴【③ 硬核】身份、信息、资源、时间、人脉和健康状态更严格。世界不会主动照顾玩家。
+回复1/2/3，默认“开始/随便/你选”→①爽玩。第一条到此停止。
+
+【入口与身份】
+玩家选择模式后输出：初到北京、相遇之后、关系转折点或自定义合理时间点；再选择原著男主、原创北漂青年、女房东、朋友/室友、职场同事、酒吧老板/店员/自由职业者或自定义身份。原创身份只问姓名、年龄、来自哪里、来京多久、目前职业；“随机”直接生成。无系统、无外挂、无凭空财富。
+
+【世界规则】
+玩家控制尝试，世界决定结果；结果必须结合身份、能力、身体、资源、时间、地点、情报、NPC反应、社会规则、第三方与环境。已发生的时间、地点、身体、职业、存款、支出、房租、物品、关系、债务、承诺、名声、秘密、角色知识与后果必须留下。NPC有目标、认知、资源、风险、利益和计划，不读心。模型知识、玩家知识、角色知识和NPC知识必须隔离。原著未来只是基线，关键前提改变后必须重新推演，禁止剧情修正力。
+
+【世界骨架】
+只在接触时加载出租屋、写字楼/咖啡馆/排练室、商圈、生活片区、地铁公交；玩家不能瞬移。工作、收入、房租、饮食、交通、健康、社交、情感与娱乐都遵循现实成本。人物各有生活，不能工具化。
+
+【电影镜头强制规则：优先级最高】
+1. 镜头必须运动：每轮至少一次推、拉、摇、移或跟镜头，不能连续两轮使用同一种。写进叙事，不准静止机位。
+2. 时间必须流动：每轮要有明确时间流逝、动作时长或环境时间变化。禁止“你坐在那里”式定格。
+3. 连续动作链：每轮至少一个三步以上的连续动作，例如伸手→掏出→解锁→滑开→查看→息屏；禁止孤立单动作。
+4. 物体必须变化：每轮至少一件物品改变状态，如窗帘被风掀起又落下、冰箱门没关严、杯中水位变化。
+5. 声音必须有动态：每轮至少三种正在发生的声音，且至少一个在变化，如雨从密变疏、电视调低、地铁刹车摩擦。
+6. 事件未结算时，以正在进行的动作流与环境变化收尾，绝不说“尚未结算”“等待后果”“未完成的尝试”。
+7. 每轮给2-3个参考行动，带动态预期：身体/环境、人际/信息、静止/观察各至少一类。玩家仍可自由输入。
+
+【第一幕】
+身份确认后直接进入场景。第一幕4-8段，每段包含正在进行的动作或时间流动；有具体地点、两条连续动作链、两个变化物体、三个不同距离的声音和一个时间锚点。动作链优先，对话自然，允许沉默和打断。禁止心理旁白、静态场景、“你感到/你觉得/你意识到”、复制原著正文或精确模仿作者文风。
+
+【视觉与HUD】
+🟤世界/节点，🟢获得/正常，🔵确认，🟡未知，🔴损失/危险，🟣关系，⚪辅助。普通回合的HUD只放正文末尾，最多2-3行，不能打断画面。重要获得、情报、怀疑、关系变化与世界线偏离均需现实依据。完整状态仅在主动要求时显示5-7项。
+
+【后台与连续性】
+每次行动后安静结算尝试、知识、时空许可、资源、NPC反应、结果和世界账本，只推进因果范围内的NPC，最后写成动态影像。每次输出前检查：时间是否流动；镜头是否运动；是否有动作链、物体变化、声音变化和动态收尾；地点、金钱、物品、知识、关系和世界线是否连续。
+
+【禁止】
+禁止一句话改变NPC或结果、NPC读心、凭空资源、人物无理由降智、强制回原著、无因果重置、每回合强制大事件、后台剧透、单一好感数、超长状态卡、限制点击、复制原著、模仿作者、未成年人情色和泄露内部推理。禁止静止画面、悬空等待句、心理旁白、连续两轮同一镜头运动、没有动作链的孤立单动作，以及用“你说了/你做了”替代具体行为。
+
+【保存】
+玩家说“保存”时输出【都市存档V1】，记录模式、入口、时间、地点、身份、状态、职业、存款债务、房租、物品、关系、情报、怀疑、承诺、秘密、后果、逼近事件、失效前提、最近事实与下一幕现场；不得泄露角色不知的真相。新对话继续时，存档事实优先。
+
+记住：玩家是来“看一部关于自己的电影”的。每一段文字都是一帧在动的画面，镜头跟着玩家走，时间不会停，物体在变，声音在变，一切都在流动。
+现在不总结、不开始剧情。第一条回复只输出【体验模式选择】，按规定的emoji格式。</template>
   <script>
     const $ = id => document.getElementById(id);
-    const prompt = $('systemPromptV3').content.textContent.trim();
+    const prompt = $('systemPromptV4').content.textContent.trim();
     const fresh = () => ({ stage:'mode', mode:'爽玩', entry:'初到北京', identity:'原创北漂青年', name:'许川', job:'试用期文案编辑', money:3200, energy:78, mood:'平静', time:'2019年9月14日，周六 18:10', place:'北京 · 朝阳区 · 东四环外', rent:'10月5日到期', intel:'生活会从细节里慢慢露出边角。', intelTitle:'🔵 还没有能确信的事', history:[] });
     let state = fresh(), typing=false, soundOn=false;
     const sleep = ms => new Promise(resolve => setTimeout(resolve,ms));
@@ -825,7 +876,7 @@ emoji：🟤世界/节点，🟢获得/正常，🔵确认，🟡未知，🔴�
     async function chooseMode(mode) { state.mode=mode; state.stage='entry'; document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage('选择 '+mode+' 模式。'); await typeStory(['🟤【选择踏入这座城市的那一天】','① 初到北京\n拖着行李箱，兜里没多少钱，地铁口的风先吹乱了衣角。','② 相遇之后\n已经住进同一套房子，却还没有人知道谁会先留下。','③ 关系转折点\n一句没说完的话、一场迟到的雨，或者一次没能避开的争吵。','🟣【选择身份】\n从此刻起，城市会记住你用什么身份推开那扇门。'],'城市入口'); addChoices([{label:'初到北京 · 原创北漂青年',run:()=>begin('初到北京','原创北漂青年')},{label:'相遇之后 · 合租室友',run:()=>begin('相遇之后','合租室友')},{label:'关系转折点 · 职场同事',run:()=>begin('关系转折点','职场同事')},{label:'自定义身份 · 在输入框描述你是谁',run:()=>customIdentity()}],'选一个入口，或者写下自己的来处：'); }
     function customIdentity() { document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); state.stage='custom'; playerMessage('我想以自己的身份进入。'); typeStory(['说一个名字、一份正在做的工作，或者一件你今晚还没解决的事。\n不需要把一生都交代完。'],'城市入口'); }
     async function begin(entry,identity,customText='') { state.entry=entry; state.identity=identity; state.stage='scene'; if(identity==='合租室友') Object.assign(state,{name:'陈放',job:'自由摄影师',money:4100,energy:70}); if(identity==='职场同事') Object.assign(state,{name:'林简',job:'品牌策划',money:5300,energy:67}); if(customText) { const clean=customText.slice(0,32); state.name='周予安'; state.job=clean.includes('程序')?'程序员':clean.includes('咖啡')?'咖啡师':'自由职业者'; state.mood='还没安顿好'; } document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage(`${entry} · ${identity}`); updateHud(); await sceneOne(); }
-    async function sceneOne() { await typeStory(['钥匙拧进锁芯，金属在掌心里凉得发黏。楼道声控灯灭得很快，黑暗里只剩隔壁洗衣机脱水时闷闷的轰鸣。','你把行李箱往门里拖了一截，轮子蹭过地板，带起一点旧木头和潮气混在一起的味道。厨房那边有水沸开，盖子轻轻跳了两下。','“鞋放门边就行。”有人在灶台前说。她把一串钥匙放在桌上，手背沾着没擦干的水。','窗外的公交车压过积水，橘黄的光从纱窗上晃过去。手机屏幕亮了一下，是陈放发来的消息：<em>明天下午望京有个招聘会，要不要一起？</em>'],'第一幕 · 入住'); footnote(['⚪ 北京·朝阳区·老小区·出租屋｜周六 18:10','🟢 身体正常｜手机有电｜存款：'+state.money+'元','🟡 明天下午的招聘会，可能是一条路。']); state.intelTitle='🟡 未确认 · 招聘会'; state.intel='陈放说那里有几家公司在招人。你还没见到任何一个招聘方。'; updateHud(); addChoices([{label:'把行李推进房间，先让今晚有地方放下',run:()=>act('收拾行李')},{label:'问她附近哪里方便找工作',run:()=>act('询问工作')},{label:'靠在门框上，听楼道里谁还没回家',run:()=>act('观察楼道')}],'选择一个能被看见的动作：'); }
+    async function sceneOne() { await typeStory(['视线先越过楼道尽头那盏忽明忽暗的感应灯，才落到你拧在锁孔里的手指上。金属凉得发黏，倒刺被钥匙硌了一下，渗出一粒小血珠。','你把行李箱从门外拖进来，轮子先撞到门槛又滑过地板；厨房水壶盖子连跳两下，隔壁洗衣机的轰鸣从重到轻，旧木头和潮气跟着箱轮翻起来。','“鞋放门边就行。”她从灶台前转过身，把钥匙放到桌面。钥匙串转了半圈才停，水珠顺着她的手背掉下来，在桌布上洇开一个深点。','窗外一辆公交压过积水，橘黄的光从纱窗左边扫到右边。你掏出手机，指纹第一次没识别，蹭过屏幕后再滑开微信：陈放刚发来消息，<em>明天下午望京有个招聘会，要不要一起？</em>'],'第一幕 · 入住'); footnote(['⚪ 北京·朝阳区·老小区·出租屋｜周六 18:10','🟢 存款：'+state.money+'元｜钥匙已在桌上','🟡 明天下午的招聘会，可能是一条路。']); state.intelTitle='🟡 未确认 · 招聘会'; state.intel='陈放说那里有几家公司在招人。你还没见到任何一个招聘方。'; updateHud(); addChoices([{label:'把行李推进房间——箱底会蹭过地板，床垫会先吃住你的重量',run:()=>act('收拾行李')},{label:'问她附近哪里方便找工作——她会不会停下手里的事',run:()=>act('询问工作')},{label:'靠在门框上——等楼道的灯再亮一次，看谁的脚步先停下',run:()=>act('观察楼道')}],'选择一段会继续向前的动作：'); }
     async function act(action) { if(typing) return; document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage(action); let lines=[], note=[]; if(action==='收拾行李') { state.energy-=5; state.mood='稍微踏实'; lines=['你把箱子靠到墙边，拉链上卡着的一根线头被扯断，落在地板上。床垫比想象中薄，坐下去时，弹簧在下面很轻地响了一声。','厨房里的水声停了。门外有人经过，鞋跟敲着水泥台阶，一下一下地往下走。','你把明天要穿的衬衫挂到衣柜门上。衣柜里有淡淡的樟脑味，门合上时没能严丝合缝。']; note=['⚪ 体力略有消耗｜房间可以住了','🟡 招聘会仍在明天下午']; } else if(action==='询问工作') { state.intelTitle='🔵 已确认 · 望京招聘会'; state.intel='沈晚把地址写在便利贴上，陈放约在下午两点的地铁站外。'; lines=['她从抽屉里找出一支笔，在便利贴上写了地址。笔尖划过纸面，沙沙的声音很轻。','“别穿得太随便。”她把纸推过来，指尖在桌面上停了一下，“那边人多，地铁会挤。”','她回厨房把火关了。锅里最后一点热气撞在玻璃窗上，很快散掉。']; note=['🔵 已确认：望京招聘会，明天下午两点','🟣 沈晚不再完全把你当陌生人']; } else if(action==='观察楼道') { state.energy=Math.max(45,state.energy-1); lines=['你没有立刻关门。楼道尽头的感应灯重新亮起来，冷白的光把墙皮剥落的边缘照得很清楚。','楼上有人拖着椅子，木腿擦过地板的声音贴着天花板走了一段；更远的地方，地铁进站时传来一阵压低的闷响。','门口那袋没扔的纸箱被风从窗缝吹得挪了半寸，纸角碰到墙根，留下一个浅浅的褐色印子。']; note=['⚪ 你在门口站了二十分钟｜楼道的灯亮过两次','🟡 隔壁房间还亮着一线光。']; } else { state.money-=22; state.energy=Math.min(100,state.energy+8); state.mood='暖和一些'; lines=['巷口的饭馆还亮着一盏白得发冷的灯。你端着一份刚炒好的盖饭站在门口，塑料盒烫得手指发红。','回到楼下时，沈晚正撑着伞从小区门口进来。她看见你手里的袋子，没问什么，只把伞往你这边偏了偏。','雨落在伞面上，细碎得像有人在不远处翻书。']; note=['🟢 支出：22元｜吃了一顿热饭','🟣 你们一起走过了一小段雨路']; }
       state.time='2019年9月14日，周六 20:05'; updateHud(); await typeStory(lines,'城市'); footnote(note); addChoices([{label:'回房间整理简历，为明天留一条路',run:()=>nextScene('整理简历')},{label:'给陈放回消息，确认明天见面',run:()=>nextScene('确认见面')}]); }
     async function nextScene(action) { document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage(action); state.energy=Math.max(40,state.energy-4); state.time='2019年9月14日，周六 22:40'; state.intelTitle='🔵 已确认 · 明天的约定'; state.intel='陈放会在望京南站外等你。你需要自己准时抵达。'; updateHud(); await typeStory(['屋里的灯只开了一盏。你把手机放在膝盖上，屏幕的冷光照着没收拾完的行李，箱子拉杆在墙上投出一条细长的影子。','门外有人轻轻把垃圾袋提走，塑料摩擦地面的声音停在你的门口，又渐渐远了；楼下便利店的卷帘门被拉下一半，铁皮在夜里刮出一声长响。','你把闹钟调到七点半。按键回弹时，窗外一辆末班公交亮着两排暖黄的灯，从墙上的光块里慢慢驶过去。'],'第二幕 · 第一条路'); footnote(['⚪ '+state.time+'｜体力 '+state.energy+'%｜窗外路灯已亮','🟢 明天的见面已经确认','🟡 你可以让这盏灯再亮一会，也可以现在睡去。']); addChoices([{label:'去厨房烧一壶水，把明早的杯子洗干净',run:()=>nextScene('烧水洗杯子')},{label:'给陈放发一句“明天见”，确认地铁站出口',run:()=>nextScene('确认见面')},{label:'坐在床沿，数一数窗外经过的车灯',run:()=>nextScene('看车灯')}],'夜已经往前走了一段：'); }

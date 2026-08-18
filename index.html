@@ -71,10 +71,10 @@
 <body>
   <div class="veil"><div class="app">
     <aside class="left">
-      <div class="brand"><span class="brand-mark"><i class="icon icon-building-2"></i></span><span>未熄灯的城<small>CITY AFTER DARK · V11</small></span></div>
+      <div class="brand"><span class="brand-mark"><i class="icon icon-building-2"></i></span><span>未熄灯的城<small>CITY AFTER DARK · V12</small></span></div>
       <div class="section-label">当前对话</div>
       <button class="nav active"><i class="icon icon-message-square"></i><span>都市 · 生活模拟</span><span>进行中</span></button>
-      <button class="nav" id="promptBtn"><i class="icon icon-scroll-text"></i><span>内置 System Prompt V11</span></button>
+      <button class="nav" id="promptBtn"><i class="icon icon-scroll-text"></i><span>内置 System Prompt V12</span></button>
       <button class="nav" id="copyBtn"><i class="icon icon-copy"></i><span>复制完整提示词</span></button>
       <div class="section-label">档案</div>
       <button class="nav" id="saveBtn"><i class="icon icon-save"></i><span>保存进度</span></button>
@@ -88,7 +88,7 @@
     </main>
     <aside class="right"><h2>今晚的账本</h2><p class="sub">只显示此刻需要带在身上的事</p><div class="clock"><div class="clock-time" id="clock">--:--</div><div class="clock-date" id="clockDate">尚未进入剧情</div></div><div class="status-row"><div class="status-top"><span>存款</span><b id="money">--</b></div></div><div class="status-row"><div class="status-top"><span>体力</span><b id="energy">--</b></div><div class="progress"><i id="energyBar" style="width:0%"></i></div></div><div class="status-row"><div class="status-top"><span>房租</span><b id="rent">--</b></div></div><div class="intel"><h3>已知 / 未确认</h3><div class="intel-item"><b id="intelTitle">🔵 还没有能确信的事</b><p id="intelText">生活会从细节里慢慢露出边角。</p></div></div><div class="right-actions"><button id="statusBtn"><i class="icon icon-list-tree"></i> 完整状态</button><button id="soundBtn"><i class="icon icon-volume-2"></i> 环境声</button></div></aside>
   </div></div>
-  <div class="modal" id="modal"><div class="modal-box"><button class="modal-close" id="modalClose" title="关闭" aria-label="关闭"><i class="icon icon-x"></i></button><h2>完整内置 System Prompt V11</h2><pre id="promptView"></pre></div></div><div class="toast" id="toast" role="status"></div>
+  <div class="modal" id="modal"><div class="modal-box"><button class="modal-close" id="modalClose" title="关闭" aria-label="关闭"><i class="icon icon-x"></i></button><h2>完整内置 System Prompt V12</h2><pre id="promptView"></pre></div></div><div class="toast" id="toast" role="status"></div>
   <template id="systemPrompt">《我的二十六岁女房客》DeepSeek 复制即玩｜真彩世界模拟器 V2（沉浸质感增强版）
 
 使用方法
@@ -907,9 +907,9 @@ emoji：🟤世界/节点，🟢正常/获得，🔵确认，🟡未知，🔴�
 
 记住：玩家是来活一遍的，不是来看剧本。你给他的是真实出租屋、会自己生活的房东和不会停下来等他的城市。
 现在不总结、不开始剧情。第一条回复只输出【体验模式选择】，使用规定的emoji格式。</template>
-  <template id="systemPromptV11">《我的二十六岁女房客》电影镜头模拟器 V11｜超体感终极沉浸·全平台适配版
+  <template id="systemPromptV12">《我的二十六岁女房客》电影镜头模拟器 V12｜超体感终极沉浸·全平台适配版
 
-你现在全权独立运行【都市·北漂超写实生活模拟 V11】。不总结、不解说、不暴露后台推理；第一条回复只纯净输出【体验模式选择】。原著仅为初始平行基线，玩家的选择永久改变世界线。输出天然适配手机、网页与电脑：每段控制在手机3-5行，段间留空，对话独立成段，参考行动逐行呈现。
+你现在全权独立运行【都市·北漂超写实生活模拟 V12】。不总结、不解说、不暴露后台推理；第一条回复只纯净输出【体验模式选择】。原著仅为初始平行基线，玩家的选择永久改变世界线。输出天然适配手机、网页与电脑：每段控制在手机3-5行，段间留空，对话独立成段，参考行动逐行呈现。
 
 【体验模式选择】
 🟤【都市真实世界观】«每一次行动、沉默与选择都会永久留下痕迹。»
@@ -920,7 +920,7 @@ emoji：🟤世界/节点，🟢正常/获得，🔵确认，🟡未知，🔴�
 
 模式后选择初到北京、初识、同居、关系转折或自定义时间点；再选择原著男主、原创北漂青年、女房东、室友、同事、夜场从业者、蓝领、技术文职或自定义身份。零外挂、零凭空财富、零强制好感与零剧情优待。
 
-【V11 十条最高铁律】
+【V12 十二条最高铁律】
 1. 每个叙事句都从身体部位或正在接收的感官开始。禁止“你把/你拿出/你躺/你翻/你感到/你觉得/你意识到”等观察式或心理旁白句。
 2. 每个动作必须有余韵：物体回弹、声音消失、触感残留、光线或身体的后续变化，不能只写动作结果。
 3. 情绪只能用身体、动作和环境呈现。禁止解释心理与第三人称观察。
@@ -932,7 +932,7 @@ emoji：🟤世界/节点，🟢正常/获得，🔵确认，🟡未知，🔴�
 9. 重大因果遵循三日渗透：当日发生、次日留痕、第三日落地，禁止立即全额兑现。
 10. 不解释玩家意图，只通过身体、物件、天气与对方留有退路的反应隐性回应。
 
-【V11 昼夜、天气与夜间六路径】
+【V12 昼夜、天气与夜间六路径】
 识别“睡觉、睡了、睡吧、我先睡了、去睡了、明天、到第二天、过夜、天亮之后、第二天早上、过一天、推进时间、跳过今晚”。收到后不追问，依据体力、压力、天气、作息、人际余波与明确目标静默匹配六条路径：沉沉酣睡、辗转浅眠、夜间中断、夜半惊醒、彻夜难眠、定向作息。不可连续重复，不可强行入睡。抵达清晨必须有窗帘缝光线、身体感受、第一声具体声音、改变状态的物件与后果碎片。睡眠质量影响次日精力、注意力与状态；连续熬夜叠加疲惫，规律早睡积累松弛。天气、温度、光影与昼夜生理节律必须贯穿体感和声场。
 
 【世界惯性与因果】
@@ -941,14 +941,16 @@ emoji：🟤世界/节点，🟢正常/获得，🔵确认，🟡未知，🔴�
 【动态电影镜头】
 每轮至少推进10分钟，镜头必须推、拉、摇、移、跟之一且不能连续重复；至少一条三环节连续动作链；至少一个物体状态迭代；近、中、远三层声场加一个强弱变化音效。人物与物体持续变化，不得用“等待结果、尚未结算、无变化”悬空收尾。每轮给2-3个带画面后果的参考行动，保留自由输入；每3-5轮至少有一轮只推进平淡生活。
 
-【V11 生活机制、HUD、保存与禁止】
-行为痕迹、关系衰减、机会刷新、失败补偿、NPC自主时间线、物件记忆、关键事件回望和随机生活扰动全部静默运行。NPC主动试探可撤回、可收场，保留成年人分寸；模型、玩家、角色与NPC知识绝对隔离。HUD不超过3行，核心信息仍融入正文。玩家输入“保存”时输出【V11都市终极完整存档】，包含状态、痕迹、关系、渗透因果、世界线、生理节律、天气、物件记忆、未完成事件和3-5行剧情回顾，但不得泄露角色未知信息。禁止瞬移、刷钱刷资源、NPC读心、无理由态度转变、强制回原著、重复镜头/声场/动作链、机械冲突、过度煽情、声音独立存在、每夜同样安稳、天气和体感脱钩、状态凭空清零与内部推理泄露。
+【V12 声音记忆、城市与生活机制】
+声音不只是背景：每轮四维声场中至少一个声音应有辨识性，能关联人物、事件或时间；至少一个声音暗示可行动方向。出租屋、写字楼、地铁站、深夜街道各自有专属声景。场景移动必须包含通勤、身体反应与北京节点感知，例如国贸的车流高楼风、五道口的多语混响、鼓楼的自行车铃。
+行为痕迹、关系衰减、机会刷新、失败补偿、NPC自主时间线、物件记忆、关键事件回望和随机生活扰动全部静默运行。楼下早餐摊、同层邻居、小区里的猫和忽明忽暗的声控灯构成可接触的街坊生态。手机保留聊天、外卖、音乐、相册、短信等数字痕迹；房租、工作交付与约会以生活碎片提醒截止日期；身体会在相似门框、歌声、气味前留下条件反射。外部新闻、家人消息、社交网络间歇渗透。
+NPC主动试探可撤回、可收场，保留成年人分寸；模型、玩家、角色与NPC知识绝对隔离。HUD不超过3行，核心信息仍融入正文。玩家输入“保存”时输出【V12都市终极完整存档】，包含状态、痕迹、关系、渗透因果、世界线、生理节律、天气、物件与声音记忆、邻里关系、数字痕迹、截止日期、未完成事件和3-5行剧情回顾，但不得泄露角色未知信息。禁止瞬移、刷钱刷资源、NPC读心、无理由态度转变、强制回原著、重复镜头/声场/动作链、机械冲突、过度煽情、声音独立存在、每夜同样安稳、天气和体感脱钩、状态凭空清零与内部推理泄露。
 
 记住：给玩家的是身体正在经历的连续画面，不是对玩家的故事报告。现在不解说、不剧透；第一条回复仅输出【体验模式选择】。</template>
   <script>
     const $ = id => document.getElementById(id);
-    const prompt = $('systemPromptV11').content.textContent.trim();
-    const fresh = () => ({ stage:'mode', mode:'爽玩', entry:'初到北京', identity:'原创北漂青年', name:'许川', job:'试用期文案编辑', money:3200, energy:78, mood:'平静', time:'2019年9月14日，周六 18:10', place:'北京 · 朝阳区 · 东四环外', rent:'10月5日到期', intel:'生活会从细节里慢慢露出边角。', intelTitle:'🔵 还没有能确信的事', turn:0, sleepCount:0, lastSleepRoute:-1, weather:'多云 · 18°C', objectMemory:'钥匙在桌上留下了一圈很浅的压痕。', history:[] });
+    const prompt = $('systemPromptV12').content.textContent.trim();
+    const fresh = () => ({ stage:'mode', mode:'爽玩', entry:'初到北京', identity:'原创北漂青年', name:'许川', job:'试用期文案编辑', money:3200, energy:78, mood:'平静', time:'2019年9月14日，周六 18:10', place:'北京 · 朝阳区 · 东四环外', rent:'10月5日到期', intel:'生活会从细节里慢慢露出边角。', intelTitle:'🔵 还没有能确信的事', turn:0, sleepCount:0, lastSleepRoute:-1, weather:'多云 · 18°C', objectMemory:'钥匙在桌上留下了一圈很浅的压痕。', soundMemory:'楼道门锁回弹的闷响还认得出来。', digitalTrace:'微信有一条没点开的消息，取件码已经过了半小时。', neighborhoodTrace:'楼下早点摊的阿姨和那只橘猫都还只是眼熟。', deadline:'招聘会：明天下午 14:00 · 望京南站外。', history:[] });
     let state = fresh(), typing=false, soundOn=false;
     const sleep = ms => new Promise(resolve => setTimeout(resolve,ms));
     function toast(text) { const t=$('toast'); t.textContent=text; t.classList.add('show'); clearTimeout(window.toastT); window.toastT=setTimeout(()=>t.classList.remove('show'),2600); }
@@ -959,7 +961,9 @@ emoji：🟤世界/节点，🟢正常/获得，🔵确认，🟡未知，🔴�
     function playerMessage(text) { const story=msgNode('你的行动',true); story.textContent=text; scroll(); }
     function addChoices(items, caption='你现在可以：') { const wrap=document.createElement('div'); wrap.className='choice-wrap'; wrap.innerHTML=`<div class="choice-caption">${caption}</div><div class="choices"></div>`; items.forEach((item,i)=>{ const b=document.createElement('button'); b.className='choice'; b.innerHTML=`<b>0${i+1}</b><span>${item.label}</span>`; b.onclick=()=>{ if(!typing) item.run(); }; wrap.querySelector('.choices').appendChild(b); }); $('feed').appendChild(wrap); scroll(); }
     function footnote(lines) { const d=document.createElement('div'); d.className='footnote'; d.innerHTML=lines.join('<br>'); $('feed').appendChild(d); scroll(); }
-    function dailyPulse() { state.turn=(Number(state.turn)||0)+1; const weatherCycle=['多云 · 18°C','小雨 · 16°C','风起 · 15°C','晴间多云 · 20°C']; if(state.turn%3===0) state.weather=weatherCycle[(state.turn/3-1)%weatherCycle.length]; const pulses=['鞋尖擦过玄关，余光扫到伞桶里多了一把滴水的黑伞。水珠砸进塑料桶，近处鞋底蹭过地面的细响停住；楼上电视从新闻换成综艺，远处车轮压过湿路，墙里又传来一记地铁的低频震动。','耳朵贴着桌面收进手机的两下短震，屏幕亮出快递柜取件码。指腹离开后，窗帘被夜风掀起又拍回墙边，卷帘门的铁皮声由近及远；楼下卡车驶过时，桌面跟着轻轻发颤。','掌心拉开冰箱门，凉气贴着腕骨钻出来。压缩机突然嗡起，保鲜层水滴啪地落在隔板上，隔壁水管跟着冲过一阵；街口的提示音由清晰变模糊，脚底还收着楼下车流的低震。']; const text=pulses[(state.turn-1)%pulses.length]; state.objectMemory=state.turn%2?'钥匙在桌上留下的浅痕被杯底的水圈慢慢盖住。':'冰箱里那盒陌生牛奶又往里挪了一点，盒角的水汽还没干。'; if(state.turn%3===0){state.intelTitle='🟡 未确认 · 生活留下的痕迹'; state.intel='天气变了，玄关的湿伞和冰箱里的牛奶仍不属于你。它们只在日常里留下可见痕迹。';} return text; }
+    function dailyPulse() { state.turn=(Number(state.turn)||0)+1; const weatherCycle=['多云 · 18°C','小雨 · 16°C','风起 · 15°C','晴间多云 · 20°C']; if(state.turn%3===0) state.weather=weatherCycle[(state.turn/3-1)%weatherCycle.length]; const pulses=['鞋尖擦过玄关，余光扫到伞桶里多了一把滴水的黑伞。水珠砸进塑料桶，近处鞋底蹭过地面的细响停住；楼上电视从新闻换成综艺，远处车轮压过湿路，墙里又传来一记地铁的低频震动。','耳朵贴着桌面收进手机的两下短震，屏幕亮出快递柜取件码。指腹离开后，窗帘被夜风掀起又拍回墙边，卷帘门的铁皮声由近及远；楼下卡车驶过时，桌面跟着轻轻发颤。','掌心拉开冰箱门，凉气贴着腕骨钻出来。压缩机突然嗡起，保鲜层水滴啪地落在隔板上，隔壁水管跟着冲过一阵；街口的提示音由清晰变模糊，脚底还收着楼下车流的低震。','耳朵先听见楼下早餐摊的锅盖掀起，紧接着那只橘猫踩过纸箱，纸板发出细碎的响。手机里一条家乡群消息亮了又暗，远处新闻车的低音从小区口掠过去，声控灯在头顶啪地亮了一下。']; const text=pulses[(state.turn-1)%pulses.length]; state.objectMemory=state.turn%2?'钥匙在桌上留下的浅痕被杯底的水圈慢慢盖住。':'冰箱里那盒陌生牛奶又往里挪了一点，盒角的水汽还没干。'; state.soundMemory=state.turn%2?'楼道门锁回弹的闷响和上周那次一样，手指会先停半拍。':'早点摊锅盖碰沿的声音每天都更早一点，像是这栋楼的闹钟。'; state.digitalTrace=state.turn%2?'微信未读旁边多了一条家乡群消息：初中同学发了婚礼照片。':'手机相册自动弹出去年今日的一张地铁口照片，指腹划过去又停住。'; state.neighborhoodTrace=state.turn%2?'同层邻居把快递靠在门边，门缝里留着一线灯。':'橘猫蹲在楼下电动车旁，早餐摊阿姨抬眼认出熟脸。'; if(state.turn%3===0){state.intelTitle='🟡 未确认 · 生活留下的痕迹'; state.intel='天气变了，玄关的湿伞、手机的未读和冰箱里的牛奶仍不属于你。它们只在日常里留下可见痕迹。';} return text; }
+    async function digitalLife() { if(typing) return; document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage('翻看手机里的消息和记录。'); state.energy=Math.max(35,state.energy-2); state.time='2019年9月14日，周六 20:28'; state.digitalTrace='微信未读、快递取件码和一张去年今日的地铁口照片都留在屏幕里。'; const trace=dailyPulse(); updateHud(); await typeStory(['指腹划开手机锁屏，冷光沿着指节滑到掌心。聊天列表里一条撤回提示停在最上面，手指没有点开，屏幕先被一条快递柜短信顶了一下。','耳朵收着指腹敲屏的轻响，厨房冰箱忽然启动，楼道里有人拖着快递箱经过；更远的地铁低频从墙里推过来，手机播放列表自动续上半首旧歌。','拇指滑到相册，去年今日的地铁口照片闪了一下。照片里出口灯箱也是这种冷白色，手背在屏幕上停住，外卖软件的订单提醒又从底部顶出来。',trace],'数字生活'); footnote(['🔵 '+state.digitalTrace,'⚪ 房租：'+state.rent+'｜'+state.deadline,'🟡 屏幕里还有一条没有点开的撤回提示。']); addChoices([{label:'回到聊天列表——撤回提示会在最上面停着',run:()=>nextScene('确认见面')},{label:'收起手机去烧水——屏幕的冷光会从掌心退开',run:()=>nextScene('烧水洗杯子')},{label:'下楼取快递——楼道的声控灯会先亮起',run:()=>neighborhoodLife()}],'手机里的痕迹还在往下排：'); }
+    async function neighborhoodLife() { if(typing) return; document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage('下楼看看楼道和街坊。'); state.energy=Math.max(35,state.energy-3); state.time='2019年9月14日，周六 20:46'; state.neighborhoodTrace='早餐摊阿姨点了点头，橘猫从电动车旁钻进阴影里。'; const trace=dailyPulse(); updateHud(); await typeStory(['鞋跟踩下楼梯，声控灯先在头顶啪地亮开。扶手的凉意沾在掌心，拐过二层时，门锁回弹的闷响从身后传来，和记忆里那一声贴在一起。','耳朵听着同层邻居关门、楼下电动车解锁和早餐摊锅盖碰沿的脆响；小区口的车流由密变疏，脚底还收着地铁经过留下的低震。','目光扫到电动车旁那只橘猫，纸箱被爪子踩出一声轻响。早餐摊阿姨抬头点了点，手里的夹子碰到铁盘，晚风把雨后潮气推到袖口。',trace],'楼道 · 街坊'); footnote(['🟣 '+state.neighborhoodTrace,'⚪ '+state.soundMemory,'🟡 '+state.deadline]); addChoices([{label:'去快递柜取件——取件码会在屏幕上亮起',run:()=>digitalLife()},{label:'回屋关上门——锁舌会把楼道声隔在外面',run:()=>nextScene('整理简历')},{label:'在楼下站一会——车流会从密到稀',run:()=>act('观察楼道')}],'楼道的灯还亮着：'); }
     async function sleepToMorning(command='') { if(typing) return; document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage(command||'睡觉，等天亮。'); state.sleepCount=(Number(state.sleepCount)||0)+1; let route; if(/早起|明天|招聘会/.test(command)) route=5; else if(state.energy<50) route=0; else if(/若有所思|紧绷/.test(state.mood)) route=1; else route=[2,3,4,0][state.sleepCount%4]; if(route===state.lastSleepRoute) route=(route+1)%5; state.lastSleepRoute=route; const nights=[['后脑勺碰到枕头，肩膀先往下塌。手指把被子拉到胸口，脚尖碰到床尾那块凉布，过了一会儿才被体温焐热。','耳朵里的衣料摩擦声先停下，冰箱压缩机低低嗡了一阵又断开；更远的车流从密变疏，地铁钻过地下时墙面轻轻颤了一下。'],['左肩压麻后挪向另一边，床垫弹簧在腰侧响了一声，又把震动慢慢吞掉。指腹在手机壳上停了片刻，屏幕没有亮。','耳朵收着水管一阵短促的水声、隔壁门轴轻响和楼下车轮碾过井盖的哐当；车声一趟趟远去，眼皮才慢慢沉下来。'],['眼皮刚合上，楼道门锁猛地弹回，闷响穿过门缝。肩膀一缩，呼吸停了半拍，手机在床头柜上震了三秒又安静。','耳朵听着楼上脚步从近到远，空调外机的嗡鸣由强变弱；更远处夜班公交刹了一下，尖响拖过街口，房间才重新暗下去。'],['眼睛在黑里睁开，喉咙干得发黏。手指够到手机，屏幕亮出3:42，蓝光从指节滑到被角。','耳朵里只剩呼吸和被子摩擦声，冰箱停机后房间更静；远处一辆货车由远到近压过路口，又把低频带走。'],['指腹按亮手机又按灭，屏幕上的时间从01:18跳到02:06。后背贴着潮热的床单，翻身时床架在腿侧轻轻响。','耳朵反复收进吞咽声、窗框被风拨动的轻碰、楼上椅脚拖过地板和远处稀疏的车流；天色从黑沉成深蓝，声音才一点点散开。'],['指尖碰到闹钟侧键，7:30的数字亮在掌心里。被子掀开时凉气先贴上小腿，鞋跟落地，地板在脚下发出短响。','耳朵听见手机提示音停下，水管里有人放水，楼下早点摊的铁勺敲着锅沿；远处地铁的闷响刚过去，窗帘已经被晨风鼓起一角。']]; const weatherPenalty=/小雨|风起/.test(state.weather||'')?2:0; const gain=Math.max(4,[24,16,14,17,6,20][route]-weatherPenalty); const weatherWake=/小雨/.test(state.weather||'')?'耳朵里先落进空调外机上断续的雨点，窗帘边缘被潮气压得发暗。':'皮肤碰到窗缝钻进来的空气，'+(state.weather||'多云')+'的凉意贴在手背上。'; const wake=['眼皮先碰到灰白的光，窗帘缝把它切成细条，斜着压在脸侧。后脑勺还陷在枕头里，右臂压麻，手指弯了两次才慢慢回温。',weatherWake,'耳朵最先收进楼下早点摊铁勺敲锅沿的脆响，近处水管跟着冲过去，隔壁门锁转了一下又松开；远处的公交声由闷变轻。','手背摸到床头柜边缘，昨晚那杯水已经凉透，杯壁水珠把木头浸出一小圈深色。手机亮着，电量剩41%，两条未读消息挤在锁屏上。']; state.time='2019年9月15日，周日 '+(route===4?'06:08':route===5?'06:50':'07:32'); state.energy=Math.min(100,state.energy+gain); state.mood=route===4?'发沉':route===1?'醒得很浅':'还没完全醒'; const trace=dailyPulse(); updateHud(); await typeStory([...nights[route],...wake,trace],'V11 夜间 · 第二天早晨'); footnote(['⚪ '+state.time+'｜'+(state.weather||'多云')+'｜体力 '+state.energy+'%','🟡 '+state.objectMemory,'🟢 第 '+state.sleepCount+' 次过夜，身体会把昨晚的睡眠质量带进今天。']); addChoices([{label:'摸到手机点开未读——屏幕的冷光会把字映到指节上',run:()=>nextScene('查看未读消息')},{label:'撑起身去烧水——水壶的绿灯会先在厨房亮起来',run:()=>nextScene('烧水洗杯子')},{label:'把窗帘拉开一掌宽——楼下的早点摊会露出一截蒸汽',run:()=>nextScene('拉开窗帘')}],'清晨已经向前走：'); }
     async function intro() { $('feed').innerHTML='<div class="date-break">新的对话</div>'; await typeStory(['🟤【都市】','«这一次，过去不会替你决定明天。\n你真正走过的路，会留在脚下。»','🟢【① 爽玩 · 推荐】\n机会更愿意回应准备，代价仍然会按时抵达。','🔵【② 沉浸】\n愿望与现实并行，关系、资源和风险自然发展。','🔴【③ 硬核】\n时间、体力、人情和账户余额都不会替你留情。'],'体验模式选择'); addChoices([{label:'爽玩 · 让有效的计划更快得到回应',run:()=>chooseMode('爽玩')},{label:'沉浸 · 让城市按自己的节奏向前',run:()=>chooseMode('沉浸')},{label:'硬核 · 用更严苛的条件开始生活',run:()=>chooseMode('硬核')}],'选择一种抵达方式：'); }
     async function chooseMode(mode) { state.mode=mode; state.stage='entry'; document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage('选择 '+mode+' 模式。'); await typeStory(['🟤【选择踏入这座城市的那一天】','① 初到北京\n拖着行李箱，兜里没多少钱，地铁口的风先吹乱了衣角。','② 相遇之后\n已经住进同一套房子，却还没有人知道谁会先留下。','③ 关系转折点\n一句没说完的话、一场迟到的雨，或者一次没能避开的争吵。','🟣【选择身份】\n从此刻起，城市会记住你用什么身份推开那扇门。'],'城市入口'); addChoices([{label:'初到北京 · 原创北漂青年',run:()=>begin('初到北京','原创北漂青年')},{label:'相遇之后 · 合租室友',run:()=>begin('相遇之后','合租室友')},{label:'关系转折点 · 职场同事',run:()=>begin('关系转折点','职场同事')},{label:'自定义身份 · 在输入框描述你是谁',run:()=>customIdentity()}],'选一个入口，或者写下自己的来处：'); }
@@ -970,8 +974,9 @@ emoji：🟤世界/节点，🟢正常/获得，🔵确认，🟡未知，🔴�
       state.time='2019年9月14日，周六 20:05'; lines.push(dailyPulse()); updateHud(); await typeStory(lines,'城市'); footnote(note); addChoices([{label:'去厨房烧一壶水——水壶绿灯会在台面上亮起来',run:()=>nextScene('整理简历')},{label:'给陈放回消息——聊天框里那句“明天见”会先停在输入栏',run:()=>nextScene('确认见面')},{label:'把鞋尖抵着门槛——看玄关那把湿伞还会滴多久',run:()=>nextScene('观察痕迹')}]); }
     async function nextScene(action) { document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage(action); state.energy=Math.max(40,state.energy-4); state.time='2019年9月14日，周六 22:40'; state.intelTitle='🔵 已确认 · 明天的约定'; state.intel='陈放会在望京南站外等你。你需要自己准时抵达。'; const trace=dailyPulse(); updateHud(); await typeStory(['屋里的灯只开了一盏。你把手机放在膝盖上，屏幕的冷光照着没收拾完的行李，箱子拉杆在墙上投出一条细长的影子。','门外有人轻轻把垃圾袋提走，塑料摩擦地面的声音停在你的门口，又渐渐远了；楼下便利店的卷帘门被拉下一半，铁皮在夜里刮出一声长响。','你把闹钟调到七点半。按键回弹时，窗外一辆末班公交亮着两排暖黄的灯，从墙上的光块里慢慢驶过去。',trace],'第二幕 · 第一条路'); footnote(['⚪ '+state.time+'｜体力 '+state.energy+'%｜窗外路灯已亮','🟢 明天的见面已经确认','🟡 你可以让这盏灯再亮一会，也可以现在睡去。']); addChoices([{label:'去厨房烧一壶水——杯底会在水槽边磕出一声轻响',run:()=>nextScene('烧水洗杯子')},{label:'给陈放发一句“明天见”——光标会在聊天框里等着',run:()=>nextScene('确认见面')},{label:'坐在床沿数车灯——最后一辆公交会从窗帘缝里滑过去',run:()=>nextScene('看车灯')}],'夜已经往前走了一段：'); }
     async function handle(text) { if(!text||typing) return; $('command').value=''; if(state.stage==='mode') { const m=/硬核|3/.test(text)?'硬核':/沉浸|2/.test(text)?'沉浸':'爽玩'; return chooseMode(m); } if(state.stage==='entry') { if(/自定义|自己|随机/.test(text)) return customIdentity(); return begin('初到北京','原创北漂青年',text); } if(state.stage==='custom') return begin('自定义时间点','原创身份',text); if(/睡觉|睡了|睡吧|我先睡了|去睡了|明天|到第二天|过夜|天亮之后|第二天早上|过一天|推进时间|跳过今晚/.test(text)) return sleepToMorning(text); if(/查看.*状态|完整状态|状态/.test(text)) return showStatus(); if(/保存/.test(text)) return save(); if(/吃|饭|下楼|便利店/.test(text)) return act('下楼吃饭'); if(/房东|沈晚|问|聊/.test(text)) return act('询问工作'); if(/收拾|行李|房间/.test(text)) return act('收拾行李'); document.querySelectorAll('.choice-wrap').forEach(x=>x.remove()); playerMessage(text); state.energy=Math.max(35,state.energy-3); state.time='2019年9月14日，周六 21:10'; state.mood='若有所思'; const trace=dailyPulse(); updateHud(); await typeStory(['指腹离开刚碰过的纸张和金属，凉意还黏在纹路里。厨房水龙头被人拧开，近处的水声一层层盖过墙外的车流。','二十多分钟从墙上钟摆过去，桌上的半杯水凉了，杯壁外侧凝出一圈湿痕。楼下外卖车停在路灯下，红色尾灯把积水照得像一小块晃动的玻璃。','拇指压住手机边缘，屏幕扣到桌面，熄灭前的黑色反光里掠过窗帘摆动的影子。',trace],'城市'); footnote(['⚪ '+state.time+'｜体力 '+state.energy+'%｜桌上的水已经凉了。','🟡 这件事已经占去了今晚的一段时间。']); addChoices([{label:'站起来去洗把脸——凉水会沿着手腕流到袖口',run:()=>act('收拾行李')},{label:'翻开手机——未读消息会在屏幕顶端跳出来或消失',run:()=>act('询问工作')},{label:'什么也不做——听楼下车流从密到稀',run:()=>act('观察楼道')}]); }
-    function save() { if(state.stage==='mode') return toast('先选择一种体验模式。'); localStorage.setItem('cityAfterDarkSave',JSON.stringify(state)); toast('🟢 已存进这台设备的浏览器。'); }
-    function showStatus() { const lines=['【V11都市终极完整存档】','模式：'+state.mode,'入口 / 阶段：'+state.entry+' / '+state.stage,'时间：'+state.time,'地点：'+state.place,'天气 / 生理节律：'+state.weather+'｜第 '+state.sleepCount+' 次过夜','角色 / 身份：'+state.name+' / '+state.identity,'职业：'+state.job,'存款 / 房租：'+state.money+'元 / '+state.rent,'状态：'+state.mood+'｜体力 '+state.energy+'%','物件痕迹：'+state.objectMemory,'已确认：'+state.intel,'【本轮进度叙事回顾】','出租屋里的灯、湿伞和冰箱里的陌生牛奶仍在延续各自的变化。','身体状态会带进下一次通勤与对话，未读消息还没有被点开。']; $('promptView').textContent=lines.join('\n'); $('modal').classList.add('show'); }
+    const baseHandle=handle; handle=async function(text) { if(text&&state.stage==='scene') { if(/手机|微信|消息|朋友圈|外卖|相册|音乐|短信|快递/.test(text)) return digitalLife(); if(/下楼|邻居|邻里|早餐|橘猫|猫|楼道|街坊/.test(text)) return neighborhoodLife(); } return baseHandle(text); };
+    function save() { if(state.stage==='mode') return toast('先选择一种体验模式。'); localStorage.setItem('cityAfterDarkSave',JSON.stringify(state)); toast('🟢 V12 存档已存进这台设备的浏览器。'); }
+    function showStatus() { const lines=['【V12都市终极完整存档】','模式：'+state.mode,'入口 / 阶段：'+state.entry+' / '+state.stage,'时间：'+state.time,'地点：'+state.place,'天气 / 生理节律：'+state.weather+'｜第 '+state.sleepCount+' 次过夜','角色 / 身份：'+state.name+' / '+state.identity,'职业：'+state.job,'存款 / 房租：'+state.money+'元 / '+state.rent,'状态：'+state.mood+'｜体力 '+state.energy+'%','物件痕迹：'+state.objectMemory,'声音记忆：'+state.soundMemory,'数字生活：'+state.digitalTrace,'街坊邻里：'+state.neighborhoodTrace,'截止日期：'+state.deadline,'已确认：'+state.intel,'【本轮进度叙事回顾】','出租屋里的灯、湿伞、未读消息与冰箱里的陌生牛奶仍在延续各自的变化。','身体状态、楼道的门锁声和邻里痕迹会带进下一次通勤与对话。']; $('promptView').textContent=lines.join('\n'); $('modal').classList.add('show'); }
     function reset() { if(confirm('要抹去这段未保存的生活，重新开始吗？')) { state=fresh(); updateHud(); intro(); } }
     async function copyPrompt() { try { await navigator.clipboard.writeText(prompt); toast('🟢 完整提示词已复制。'); } catch { $('promptView').textContent=prompt; $('modal').classList.add('show'); toast('⚪ 浏览器阻止自动复制，请在弹窗中手动复制。'); } }
     function openPrompt() { $('promptView').textContent=prompt; $('modal').classList.add('show'); }
